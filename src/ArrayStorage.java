@@ -12,27 +12,20 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
-        size = 0;
-
     }
-
 
     void save(Resume r) {
         if (size < storage.length) {
             storage[size] = r;
             size++;
-
         }
     }
-
 
     Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             Resume resume = storage[i];
-            if (resume != null && uuid.equals(resume.uuid)) {
+            if (uuid.equals(resume.uuid)) {
                 return resume;
-            } else {
-                break;
             }
         }
         return null;
@@ -42,21 +35,11 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-
-
+        return Arrays.copyOf(storage, size);
     }
 
-
     int size() {
-        int count = 0;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                count++;
-            }
-
-        }
-        return count;
+        return storage.length;
     }
 
     void delete(String uuid) {
@@ -66,7 +49,6 @@ public class ArrayStorage {
                 storage[size - 1] = null;
                 size--;
                 return;
-
             }
         }
         System.out.println("Resume not exist");
