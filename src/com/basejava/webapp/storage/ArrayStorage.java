@@ -22,7 +22,7 @@ public class ArrayStorage {
     public void update(Resume resume) {
         for (int i = 0; i < size; i++) {
             if (storage[i] == resume) {
-                storage[size] = resume;
+                storage[i] = resume;
                 System.out.println("Resume is updated");
             } else {
                 System.out.println(R_NOT_PRESENT);
