@@ -25,7 +25,7 @@ public class ArrayStorage {
                 storage[size] = resume;
                 System.out.println("Resume is updated");
             } else {
-                System.out.println(R_PRESENT);
+                System.out.println(R_NOT_PRESENT);
             }
         }
     }
@@ -78,6 +78,5 @@ public class ArrayStorage {
                 System.out.println(R_NOT_PRESENT);
             }
         }
-        System.out.println("Resume not exist");
     }
 }
