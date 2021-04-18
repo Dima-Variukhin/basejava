@@ -10,12 +10,12 @@ import java.util.Arrays;
 public class ArrayStorage {
     static final String R_PRESENT = "Resume already exists";
     static final String R_NOT_PRESENT = "Resume is not present";
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
     private int size = 0;
 
     public void clear() {
-            Arrays.fill(storage,0,size,null);
-        }
+        Arrays.fill(storage, 0, size, null);
+    }
 
 
     public void update(Resume resume) {
@@ -48,9 +48,8 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (uuid == storage[i].getUuid()) {
                 return storage[i];
-            } else {
-                System.out.println(R_NOT_PRESENT);
             }
+            System.out.println(R_NOT_PRESENT);
         }
         return null;
     }
@@ -73,9 +72,8 @@ public class ArrayStorage {
                 storage[size - 1] = null; // а последнего делаем null
                 size--; // уменьшаем размер
                 return;
-            } else {
-                System.out.println(R_NOT_PRESENT);
             }
+            System.out.println(R_NOT_PRESENT);
         }
     }
 }
