@@ -15,7 +15,7 @@ public class ArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
-    }
+    } //заполняем все size with null
 
 
     public void update(Resume resume) {
