@@ -67,7 +67,7 @@ public class ArrayStorage {
 
     public void delete(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume)) { // если uuid равен i-ому гэтuuid
+            if (isResumePresent(resume)) {
                 storage[i] = storage[size - 1]; //  мы i-ому элементу присваиваем значение последнего
                 storage[size - 1] = null; // а последнего делаем null
                 size--; //уменьшаем размер
