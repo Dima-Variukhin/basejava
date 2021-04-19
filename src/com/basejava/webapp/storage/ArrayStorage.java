@@ -20,7 +20,7 @@ public class ArrayStorage {
 
     public void update(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume)) {
+            if (isResumePresent(resume.getUuid())) {
                 storage[i] = resume;
                 System.out.println("Resume " + storage[i].getUuid() + " is updated");
             } else {
@@ -31,7 +31,7 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume)) {
+            if (isResumePresent(resume.getUuid())) {
                 System.out.println(resume.getUuid() + R_PRESENT);
                 break;
             }
@@ -44,12 +44,12 @@ public class ArrayStorage {
         }
     }
 
-    public Resume get(Resume resume) {
+    public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume)) {
+            if (isResumePresent(uuid)) {
                 return storage[i];
             }
-            System.out.println(resume.getUuid() + R_NOT_PRESENT);
+            System.out.println(uuid + R_NOT_PRESENT);
         }
         return null;
     }
@@ -65,21 +65,21 @@ public class ArrayStorage {
         return size;
     }
 
-    public void delete(Resume resume) {
+    public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume)) {
+            if (isResumePresent(uuid)) {
                 storage[i] = storage[size - 1]; //  мы i-ому элементу присваиваем значение последнего
                 storage[size - 1] = null; // а последнего делаем null
                 size--; //уменьшаем размер
                 return;
             }
-            System.out.println(resume.getUuid() + R_NOT_PRESENT);
+            System.out.println(uuid + R_NOT_PRESENT);
         }
     }
 
-    public boolean isResumePresent(Resume resume) {
+    public boolean isResumePresent(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (resume.getUuid() == storage[i].getUuid()) {
+            if (uuid == storage[i].getUuid()) {
                 return true;
             }
         }
