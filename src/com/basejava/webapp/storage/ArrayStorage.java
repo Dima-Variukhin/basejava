@@ -20,7 +20,7 @@ public class ArrayStorage {
 
     public void update(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (resume.getUuid() == storage[i].getUuid()) {
+            if (checkResume(resume)) {
                 storage[i] = resume;
                 System.out.println("Resume " + storage[i].getUuid() + " is updated");
             } else {
@@ -31,7 +31,7 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (resume.getUuid() == storage[i].getUuid()) {
+            if (checkResume(resume)) {
                 System.out.println(resume.getUuid() + R_PRESENT);
                 break;
             }
@@ -44,12 +44,12 @@ public class ArrayStorage {
         }
     }
 
-    public Resume get(String uuid) {
+    public Resume get(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (uuid == storage[i].getUuid()) {
+            if (checkResume(resume)) {
                 return storage[i];
             }
-            System.out.println(uuid + R_NOT_PRESENT);
+            System.out.println(resume.getUuid() + R_NOT_PRESENT);
         }
         return null;
     }
@@ -65,15 +65,24 @@ public class ArrayStorage {
         return size;
     }
 
-    public void delete(String uuid) {
+    public void delete(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (uuid == storage[i].getUuid()) { // если uuid равен i-ому гэтuuid
+            if (checkResume(resume)) { // если uuid равен i-ому гэтuuid
                 storage[i] = storage[size - 1]; //  мы i-ому элементу присваиваем значение последнего
                 storage[size - 1] = null; // а последнего делаем null
                 size--; // уменьшаем размер
                 return;
             }
-            System.out.println(uuid + R_NOT_PRESENT);
+            System.out.println(resume.getUuid() + R_NOT_PRESENT);
         }
+    }
+
+    public boolean checkResume(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (resume.getUuid() == storage[i].getUuid()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
