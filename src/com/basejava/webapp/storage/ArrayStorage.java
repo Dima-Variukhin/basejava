@@ -70,7 +70,7 @@ public class ArrayStorage {
             if (checkResume(resume)) { // если uuid равен i-ому гэтuuid
                 storage[i] = storage[size - 1]; //  мы i-ому элементу присваиваем значение последнего
                 storage[size - 1] = null; // а последнего делаем null
-                size--; // уменьшаем размер
+                size--; //уменьшаем размер
                 return;
             }
             System.out.println(resume.getUuid() + R_NOT_PRESENT);
