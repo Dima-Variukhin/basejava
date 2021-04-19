@@ -8,36 +8,36 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    static final String R_PRESENT = "Resume already exists";
-    static final String R_NOT_PRESENT = "Resume is not present";
+    static final String R_PRESENT = " already exists";
+    static final String R_NOT_PRESENT = " is not present";
     private Resume[] storage = new Resume[10_000];
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage, 0, size, null);
-    } //заполняем все size with null
+        Arrays.fill(storage, 0, size, null); //заполняем все size with null
+    }
 
 
     public void update(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (storage[i] == resume) {
+            if (resume.getUuid() == storage[i].getUuid()) {
                 storage[i] = resume;
-                System.out.println("Resume is updated");
+                System.out.println("Resume " + storage[i].getUuid() + " is updated");
             } else {
-                System.out.println(R_NOT_PRESENT);
+                System.out.println(resume.getUuid() + R_NOT_PRESENT);
             }
         }
     }
 
-    public void save(Resume r) {
+    public void save(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (storage[i] == r) {
-                System.out.println(R_PRESENT);
+            if (resume.getUuid() == storage[i].getUuid()) {
+                System.out.println(resume.getUuid() + R_PRESENT);
                 break;
             }
         }
         if (size < storage.length) {
-            storage[size] = r;
+            storage[size] = resume;
             size++;
         } else {
             System.out.println("List is full");
@@ -49,7 +49,7 @@ public class ArrayStorage {
             if (uuid == storage[i].getUuid()) {
                 return storage[i];
             }
-            System.out.println(R_NOT_PRESENT);
+            System.out.println(uuid + R_NOT_PRESENT);
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class ArrayStorage {
                 size--; // уменьшаем размер
                 return;
             }
-            System.out.println(R_NOT_PRESENT);
+            System.out.println(uuid + R_NOT_PRESENT);
         }
     }
 }
