@@ -14,24 +14,24 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage, 0, size, null); //заполняем все size with null
+        //заполняем все size with null
+        Arrays.fill(storage, 0, size, null);
     }
 
 
     public void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume.getUuid())) {
-                storage[i] = resume;
-                System.out.println("Resume " + storage[i].getUuid() + " is updated");
-            } else {
-                System.out.println(resume.getUuid() + R_NOT_PRESENT);
-            }
+        try {
+            storage[isResumePresent(resume.getUuid())] = resume;
+            System.out.println("Resume " + storage[isResumePresent(resume.getUuid())].getUuid() + " is updated");
+        } catch (Exception e) {
+            System.out.println(resume.getUuid() + R_NOT_PRESENT);
         }
     }
 
+
     public void save(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (isResumePresent(resume.getUuid())) {
+            if (resume.getUuid() == storage[i].getUuid()) {
                 System.out.println(resume.getUuid() + R_PRESENT);
                 break;
             }
@@ -45,10 +45,9 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (isResumePresent(uuid)) {
-                return storage[i];
-            }
+        try {
+            return storage[isResumePresent(uuid)];
+        } catch (Exception e) {
             System.out.println(uuid + R_NOT_PRESENT);
         }
         return null;
@@ -66,23 +65,25 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (isResumePresent(uuid)) {
-                storage[i] = storage[size - 1]; //  мы i-ому элементу присваиваем значение последнего
-                storage[size - 1] = null; // а последнего делаем null
-                size--; //уменьшаем размер
-                return;
-            }
+        try {
+            //мы i-ому элементу присваиваем значение последнего
+            storage[isResumePresent(uuid)] = storage[size - 1];
+            //а последнего делаем null
+            storage[size - 1] = null;
+            //уменьшаем размер
+            size--;
+            return;
+        } catch (Exception e) {
             System.out.println(uuid + R_NOT_PRESENT);
         }
     }
 
-    public boolean isResumePresent(String uuid) {
+    public int isResumePresent(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid == storage[i].getUuid()) {
-                return true;
+                return i;
             }
         }
-        return false;
+        return 0;
     }
 }
