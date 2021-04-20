@@ -30,17 +30,16 @@ public class ArrayStorage {
 
 
     public void save(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (resume.getUuid() == storage[i].getUuid()) {
-                System.out.println(resume.getUuid() + R_PRESENT);
-                break;
+        try {
+            isResumePresent(resume.getUuid());
+            if (size < storage.length) {
+                storage[size] = resume;
+                size++;
+            } else {
+                System.out.println("List is full");
             }
-        }
-        if (size < storage.length) {
-            storage[size] = resume;
-            size++;
-        } else {
-            System.out.println("List is full");
+        } catch (Exception e) {
+            System.out.println(resume.getUuid() + R_PRESENT);
         }
     }
 
