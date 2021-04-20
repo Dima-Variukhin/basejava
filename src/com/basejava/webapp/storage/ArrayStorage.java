@@ -83,6 +83,6 @@ public class ArrayStorage {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 }
