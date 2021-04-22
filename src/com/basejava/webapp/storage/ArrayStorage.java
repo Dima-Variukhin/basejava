@@ -7,10 +7,11 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
     static final String R_PRESENT = " already exists";
     static final String R_NOT_PRESENT = " is not present";
-    private Resume[] storage = new Resume[10_000];
+    private static final int STORAGE_LIMIT = 10_000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public void clear() {
@@ -29,9 +30,9 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index == -1) {
-            if (size < storage.length) {
+        // сделали инлайн метода так как он используется здесь только один раз
+        if (findIndex(resume.getUuid()) == -1) {
+            if (size < STORAGE_LIMIT) {
                 storage[size] = resume;
                 size++;
             } else {
@@ -55,7 +56,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
@@ -76,7 +77,7 @@ public class ArrayStorage {
         System.out.println(uuid + R_NOT_PRESENT);
     }
 
-    public int findIndex(String uuid) {
+    private int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid == storage[i].getUuid()) {
                 return i;
