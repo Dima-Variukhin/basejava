@@ -8,18 +8,21 @@ import com.basejava.webapp.model.Resume;
 public interface Storage {
     void clear();
 
-    void update(Resume resume);
+    int size();
+
+    void delete(String uuid);
+
+    Resume get(String uuid);
+
+    Resume[] getAll();
 
     void save(Resume resume);
 
-    Resume get(String uuid);
+    void update(Resume resume);
+
+    int findIndex(String uuid);
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll();
-
-    int size();
-
-    void delete(String uuid);
 }

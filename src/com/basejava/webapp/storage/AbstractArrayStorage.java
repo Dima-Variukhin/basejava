@@ -52,5 +52,5 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public abstract void update(Resume resume);
 
-    protected abstract int findIndex(String uuid);
+    public abstract int findIndex(String uuid);
 }
