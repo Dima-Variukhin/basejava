@@ -48,5 +48,9 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    public abstract void save(Resume resume);
+
+    public abstract void update(Resume resume);
+
     protected abstract int findIndex(String uuid);
 }
