@@ -15,6 +15,21 @@ public abstract class AbstractArrayStorage implements Storage {
         Arrays.fill(storage, 0, size, null);
     }
 
+    @Override
+    public void delete(String uuid) {
+        int index = findIndex(uuid);
+        if (index != -1) {
+            //мы i-ому элементу присваиваем значение последнего
+            storage[index] = storage[size - 1];
+            //а последнего делаем null
+            storage[size - 1] = null;
+            //уменьшаем размер
+            size--;
+            return;
+        }
+        System.out.println(uuid + " is not present");
+    }
+
     public int size() {
         return size;
     }

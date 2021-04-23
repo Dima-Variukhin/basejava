@@ -37,20 +37,6 @@ public class ArrayStorage extends AbstractArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
 
-    public void delete(String uuid) {
-        int index = findIndex(uuid);
-        if (index != -1) {
-            //мы i-ому элементу присваиваем значение последнего
-            storage[index] = storage[size - 1];
-            //а последнего делаем null
-            storage[size - 1] = null;
-            //уменьшаем размер
-            size--;
-            return;
-        }
-        System.out.println(uuid + R_NOT_PRESENT);
-    }
-
     protected int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
