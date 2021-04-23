@@ -15,6 +15,10 @@ public abstract class AbstractArrayStorage implements Storage {
         Arrays.fill(storage, 0, size, null);
     }
 
+    public int size() {
+        return size;
+    }
+
     @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
@@ -28,10 +32,6 @@ public abstract class AbstractArrayStorage implements Storage {
             return;
         }
         System.out.println(uuid + " is not present");
-    }
-
-    public int size() {
-        return size;
     }
 
     public Resume get(String uuid) {
