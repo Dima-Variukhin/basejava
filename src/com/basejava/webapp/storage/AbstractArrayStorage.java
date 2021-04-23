@@ -30,7 +30,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     protected abstract int findIndex(String uuid);
