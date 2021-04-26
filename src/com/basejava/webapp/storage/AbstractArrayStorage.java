@@ -35,7 +35,6 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
-        // сделали инлайн метода так как он используется здесь только один раз
         if (size == STORAGE_LIMIT) {
             System.out.println("List is full");
         }
