@@ -34,6 +34,18 @@ public abstract class AbstractArrayStorage implements Storage {
         System.out.println(uuid + " is not present");
     }
 
+    public void save(Resume resume) {
+        // сделали инлайн метода так как он используется здесь только один раз
+        if (size == STORAGE_LIMIT) {
+            System.out.println("List is full");
+        }
+        if (findIndex(resume.getUuid()) < 0) {
+            differ(resume);
+        } else {
+            System.out.println(resume.getUuid() + " already exist");
+        }
+    }
+
     @Override
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
@@ -59,7 +71,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public abstract void save(Resume resume);
+    abstract void differ(Resume resume);
 
     public abstract int findIndex(String uuid);
 }
