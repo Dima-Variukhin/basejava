@@ -5,7 +5,6 @@ import com.basejava.webapp.model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
-
     @Override
     public void save(Resume resume) {
         if (size == STORAGE_LIMIT) {
