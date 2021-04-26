@@ -19,7 +19,6 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index != -1) {
@@ -45,7 +44,6 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    @Override
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index != -1) {
@@ -65,7 +63,6 @@ public abstract class AbstractArrayStorage implements Storage {
         return null;
     }
 
-    @Override
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
