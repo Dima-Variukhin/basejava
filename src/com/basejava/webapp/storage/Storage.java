@@ -19,10 +19,4 @@ public interface Storage {
     void save(Resume resume);
 
     void update(Resume resume);
-
-    int findIndex(String uuid);
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
 }

@@ -7,16 +7,6 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void update(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index != -1) {
-            storage[index] = resume;
-        } else {
-            System.out.println(resume.getUuid() + " is not present");
-        }
-    }
-
-    @Override
     public void save(Resume resume) {
         if (size == STORAGE_LIMIT) {
             System.out.println("List is full");
