@@ -38,7 +38,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("List is full");
         }
         if (findIndex(resume.getUuid()) < 0) {
-            differ(resume);
+            differPartOfSave(resume);
         } else {
             System.out.println(resume.getUuid() + " already exist");
         }
@@ -67,7 +67,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    abstract void differ(Resume resume);
+    abstract void differPartOfSave(Resume resume);
 
     public abstract int findIndex(String uuid);
 }

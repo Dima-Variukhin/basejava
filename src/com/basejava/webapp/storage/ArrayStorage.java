@@ -4,7 +4,7 @@ import com.basejava.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    void differ(Resume resume) {
+    void differPartOfSave(Resume resume) {
         storage[size] = resume;
         size++;
     }
