@@ -8,7 +8,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     void deleteFromArray(String uuid) {
         int index = findIndex(uuid);
-        storage[index] = storage[size - 1];
+        System.arraycopy(storage, 1, storage, 0, storage.length - 1);
         storage[size - 1] = null;
         size--;
     }
