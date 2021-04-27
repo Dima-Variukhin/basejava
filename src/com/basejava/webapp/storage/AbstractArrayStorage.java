@@ -21,13 +21,8 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void delete(String uuid) {
         int index = findIndex(uuid);
-        if (index != -1) {
-            //мы i-ому элементу присваиваем значение последнего
-            storage[index] = storage[size - 1];
-            //а последнего делаем null
-            storage[size - 1] = null;
-            //уменьшаем размер
-            size--;
+        if (index > 0) {
+            deleteFromArray(uuid);
             return;
         }
         System.out.println(uuid + " is not present");
@@ -38,7 +33,8 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("List is full");
         }
         if (findIndex(resume.getUuid()) < 0) {
-            differPartOfSave(resume);
+            saveToArray(resume);
+            size++;
         } else {
             System.out.println(resume.getUuid() + " already exist");
         }
@@ -67,7 +63,9 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    abstract void differPartOfSave(Resume resume);
+    abstract void deleteFromArray(String uuid);
+
+    abstract void saveToArray(Resume resume);
 
     public abstract int findIndex(String uuid);
 }
