@@ -4,11 +4,9 @@ import com.basejava.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    void deleteFromArray(String uuid) {
-        int index = findIndex(uuid);
+    void deleteFromArray(String uuid, int index) {
         storage[index] = storage[size - 1];
         storage[size - 1] = null;
-        size--;
     }
 
     @Override

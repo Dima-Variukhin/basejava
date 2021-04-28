@@ -6,11 +6,9 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
-    void deleteFromArray(String uuid) {
-        int index = findIndex(uuid);
-        System.arraycopy(storage, 1, storage, 0, storage.length - 1);
-        storage[size - 1] = null;
-        size--;
+    void deleteFromArray(String uuid, int index) {
+        storage[index] = null;
+        System.arraycopy(storage, index + 1, storage, index, size - index);
     }
 
     @Override
