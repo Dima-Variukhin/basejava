@@ -6,7 +6,6 @@ public class ArrayStorage extends AbstractArrayStorage {
     @Override
     void deleteFromArray(String uuid, int index) {
         storage[index] = storage[size - 1];
-        storage[size - 1] = null;
     }
 
     @Override
