@@ -30,10 +30,11 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
+        int index = findIndex(resume.getUuid());
         if (size == STORAGE_LIMIT) {
             System.out.println("List is full");
-        } else if (findIndex(resume.getUuid()) < 0) {
-            saveToArray(resume, findIndex(resume.getUuid()));
+        } else if (index < 0) {
+            saveToArray(resume, index);
             size++;
         } else {
             System.out.println(resume.getUuid() + " already exist");
