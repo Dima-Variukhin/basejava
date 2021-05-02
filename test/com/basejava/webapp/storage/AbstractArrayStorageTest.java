@@ -9,14 +9,12 @@ import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest {
     private Storage storage;
-
     Resume resume = new Resume();
 
     @Before
     public void setUp() throws Exception {
         storage.clear();
         storage.save(resume);
-
     }
 
     public AbstractArrayStorageTest(Storage storage) {
