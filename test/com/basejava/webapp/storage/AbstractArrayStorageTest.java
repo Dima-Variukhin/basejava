@@ -43,7 +43,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void update() {
         storage.update(storage.get(UUID_3));
-        Assert.assertEquals(storage.get(UUID_3), storage.get(UUID_3));
+        Assert.assertEquals(resume, resume);
     }
 
     @Test
