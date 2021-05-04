@@ -101,8 +101,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
-        Resume[]resumes = storage.getAll();
-        Assert.assertEquals(resumes,storage.getAll());
+        Resume[] resumes = storage.getAll();
+        Assert.assertEquals(resumes, storage.getAll());
     }
 
     public void assertSize(int size) {
