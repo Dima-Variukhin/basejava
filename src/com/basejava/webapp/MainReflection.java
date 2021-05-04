@@ -1,4 +1,4 @@
-package com.basejava.webapp.exception;
+package com.basejava.webapp;
 
 import com.basejava.webapp.model.Resume;
 
