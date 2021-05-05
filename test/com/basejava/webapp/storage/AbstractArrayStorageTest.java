@@ -12,7 +12,7 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
-    static String UUID_4 = "uuid4";
+    private static final String UUID_4 = "uuid4";
     private final Storage storage;
 
     @Before
@@ -47,7 +47,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(new Resume());
+        storage.update(new Resume(UUID_4));
     }
 
     @Test
@@ -75,9 +75,10 @@ public abstract class AbstractArrayStorageTest {
         storage.save(new Resume());
     }
 
-    @Test()
+    @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_3);
+        storage.get(UUID_3);
         assertSize(2);
     }
 
