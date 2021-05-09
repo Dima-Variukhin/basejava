@@ -13,16 +13,19 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+    @Override
     public void clear() {
         //заполняем все size with null
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
@@ -34,6 +37,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         throw new NotExistStorageException(uuid);
     }
 
+    @Override
     public void save(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (size == STORAGE_LIMIT) {
@@ -46,6 +50,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         }
     }
 
+    @Override
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index >= 0) {
@@ -56,6 +61,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         }
     }
 
+    @Override
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
@@ -64,6 +70,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         throw new NotExistStorageException(uuid);
     }
 
+    @Override
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
