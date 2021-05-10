@@ -18,6 +18,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
+    public Resume getFrom(int index) {
+        return resumes.get(index);
+    }
+
+    @Override
+    public void updateTo(int index, Resume resume) {
+        resumes.set(index, resume);
+        System.out.println("Resume " + resumes.get(index).getUuid() + " is updated");
+    }
+
+    @Override
     public void clear() {
         resumes.clear();
     }

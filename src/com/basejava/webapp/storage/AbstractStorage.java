@@ -5,8 +5,6 @@ import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    protected ListStorage listStorage;
-
     @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
@@ -16,7 +14,6 @@ public abstract class AbstractStorage implements Storage {
         }
         throw new NotExistStorageException(uuid);
     }
-
 
     @Override
     public void save(Resume resume) {
@@ -32,8 +29,7 @@ public abstract class AbstractStorage implements Storage {
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index >= 0) {
-            listStorage.resumes.set(index, resume);
-            System.out.println("Resume " + listStorage.resumes.get(index).getUuid() + " is updated");
+            updateTo(index, resume);
         } else {
             throw new NotExistStorageException(resume.getUuid());
         }
@@ -43,10 +39,14 @@ public abstract class AbstractStorage implements Storage {
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            return listStorage.resumes.get(index);
+            getFrom(index);
         }
         throw new NotExistStorageException(uuid);
     }
+
+    public abstract Resume getFrom(int index);
+
+    public abstract void updateTo(int index, Resume resume);
 
     public abstract int findIndex(String uuid);
 
