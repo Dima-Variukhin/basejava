@@ -7,7 +7,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage extends AbstractStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -29,7 +29,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            deleteFromArray(uuid, index);
+            deleteFrom(uuid, index);
             storage[size - 1] = null;
             size--;
             return;
@@ -43,7 +43,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else if (index < 0) {
-            saveToArray(resume, index);
+            saveTo(resume, index);
             size++;
         } else {
             throw new ExistStorageException(resume.getUuid());
@@ -75,9 +75,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    abstract void deleteFromArray(String uuid, int index);
+    abstract void deleteFrom(String uuid, int index);
 
-    abstract void saveToArray(Resume resume, int index);
+    abstract void saveTo(Resume resume, int index);
 
     public abstract int findIndex(String uuid);
 }

@@ -4,36 +4,25 @@ import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
-
 public abstract class AbstractStorage implements Storage {
-    protected ArrayList<Resume> resumes = new ArrayList<>();
-
-    @Override
-    public void clear() {
-        resumes.clear();
-    }
-
-    @Override
-    public int size() {
-        return resumes.size();
-    }
+    protected ListStorage listStorage;
 
     @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            deleteFromArray(uuid, index);
-        } else {
-            throw new NotExistStorageException(uuid);
+            deleteFrom(uuid, index);
+            return;
         }
+        throw new NotExistStorageException(uuid);
     }
+
 
     @Override
     public void save(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index < 0) {
-            saveToArray(resume, index);
+            saveTo(resume, index);
         } else {
             throw new ExistStorageException(resume.getUuid());
         }
@@ -43,8 +32,8 @@ public abstract class AbstractStorage implements Storage {
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index >= 0) {
-            resumes.set(index, resume);
-            System.out.println("Resume " + resumes.get(index).getUuid() + " is updated");
+            listStorage.resumes.set(index, resume);
+            System.out.println("Resume " + listStorage.resumes.get(index).getUuid() + " is updated");
         } else {
             throw new NotExistStorageException(resume.getUuid());
         }
@@ -54,19 +43,15 @@ public abstract class AbstractStorage implements Storage {
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            return resumes.get(index);
+            return listStorage.resumes.get(index);
         }
         throw new NotExistStorageException(uuid);
     }
 
-    @Override
-    public Resume[] getAll() {
-        return resumes.toArray(Resume[]::new);
-    }
-
     public abstract int findIndex(String uuid);
 
-    abstract void deleteFromArray(String uuid, int index);
+    abstract void deleteFrom(String uuid, int index);
 
-    abstract void saveToArray(Resume resume, int index);
+    abstract void saveTo(Resume resume, int index);
+
 }

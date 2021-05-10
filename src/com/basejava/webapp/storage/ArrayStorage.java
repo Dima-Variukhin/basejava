@@ -4,12 +4,12 @@ import com.basejava.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    void deleteFromArray(String uuid, int index) {
+    void deleteFrom(String uuid, int index) {
         storage[index] = storage[size - 1];
     }
 
     @Override
-    void saveToArray(Resume resume, int index) {
+    void saveTo(Resume resume, int index) {
         storage[size] = resume;
     }
 
