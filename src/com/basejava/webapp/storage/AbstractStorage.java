@@ -9,7 +9,7 @@ public abstract class AbstractStorage implements Storage {
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            deleteFrom(uuid, index);
+            deleteFrom(index);
             return;
         }
         throw new NotExistStorageException(uuid);
@@ -50,7 +50,7 @@ public abstract class AbstractStorage implements Storage {
 
     public abstract int findIndex(String uuid);
 
-    abstract void deleteFrom(String uuid, int index);
+    abstract void deleteFrom(int index);
 
     abstract void saveTo(Resume resume, int index);
 

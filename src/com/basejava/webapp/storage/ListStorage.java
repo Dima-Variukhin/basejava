@@ -2,13 +2,14 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
+import java.util.*;
+
 
 public class ListStorage extends AbstractStorage {
-    protected ArrayList<Resume> resumes = new ArrayList<>();
+    protected List<Resume> resumes = new ArrayList<>();
 
     @Override
-    void deleteFrom(String uuid, int index) {
+    void deleteFrom(int index) {
         resumes.remove(index);
     }
 
@@ -45,6 +46,11 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public int findIndex(String uuid) {
-        return resumes.indexOf(new Resume(uuid));
+        for (Resume r : resumes) {
+            if (Objects.equals(r.getUuid(), uuid)) {
+                return resumes.indexOf(r);
+            }
+        }
+        return -1;
     }
 }
