@@ -38,7 +38,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    abstract void saveTo(Resume resume, int index);
-
     public abstract int findIndex(String uuid);
 }
