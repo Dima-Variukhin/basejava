@@ -39,7 +39,7 @@ public abstract class AbstractStorage implements Storage {
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            getFrom(index);
+            return getFrom(index);
         }
         throw new NotExistStorageException(uuid);
     }

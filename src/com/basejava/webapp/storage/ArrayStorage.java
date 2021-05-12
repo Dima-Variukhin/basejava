@@ -1,23 +1,16 @@
 package com.basejava.webapp.storage;
 
-import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    void deleteFrom(int index) {
+    public void deleteFromArray(int index) {
         storage[index] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
     }
 
     @Override
-    void saveTo(Resume resume, int index) {
-        if (size == STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", resume.getUuid());
-        }
+    public void saveToArray(Resume resume, int index) {
         storage[size] = resume;
-        size++;
     }
 
     @Override

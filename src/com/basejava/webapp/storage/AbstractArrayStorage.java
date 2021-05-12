@@ -1,5 +1,6 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -23,6 +24,23 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
+    void saveTo(Resume resume, int index) {
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", resume.getUuid());
+        }
+        saveToArray(resume, index);
+        size++;
+    }
+
+    @Override
+    void deleteFrom(int index) {
+        deleteFromArray(index);
+        storage[size - 1] = null;
+        size--;
+    }
+
+
+    @Override
     public void updateTo(int index, Resume resume) {
         storage[index] = resume;
         System.out.println("Resume " + storage[index].getUuid() + " is updated");
@@ -37,6 +55,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
+
+    public abstract void saveToArray(Resume resume, int index);
+
+    public abstract void deleteFromArray(int index);
 
     public abstract int findIndex(String uuid);
 }
