@@ -15,7 +15,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public void updateTo(int index, Resume resume) {
-        mapResumes.put(String.valueOf(index), mapResumes.get(String.valueOf(index) + 1));
+        mapResumes.put(String.valueOf(index), mapResumes.get(String.valueOf(index)));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MapStorage extends AbstractStorage {
     public int findIndex(String uuid) {
         for (Map.Entry<String, Resume> entry : mapResumes.entrySet()) {
             if (uuid.equals(entry.getKey())) {
-                return Integer.parseInt(uuid);
+                return Integer.parseInt(entry.getKey());
             }
         }
         return -1;
