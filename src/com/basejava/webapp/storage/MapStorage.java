@@ -4,28 +4,31 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapStorage extends AbstractStorage {
     protected Map<String, Resume> mapResumes = new HashMap<>();
 
     @Override
-    public Resume getFrom(int index) {
-        return mapResumes.get(String.valueOf(index));
+    public Resume getFrom(Object index) {
+        String element = (String) index;
+        return mapResumes.get(element);
     }
 
     @Override
-    public void updateTo(int index, Resume resume) {
-        mapResumes.put(String.valueOf(index), mapResumes.get(String.valueOf(index)));
+    public void updateTo(Object index, Resume resume) {
+        mapResumes.put((String) index, resume);
     }
 
     @Override
-    void deleteFrom(int index) {
-        mapResumes.remove(String.valueOf(index));
+    void deleteFrom(Object index) {
+        String s = (String) index;
+        mapResumes.remove(s);
     }
 
     @Override
-    void saveTo(Resume resume, int index) {
-        mapResumes.put(resume.getUuid(), resume);
+    void saveTo(Resume resume, Object index) {
+        mapResumes.put((String) index, resume);
     }
 
     @Override
@@ -43,12 +46,17 @@ public class MapStorage extends AbstractStorage {
         return mapResumes.values().toArray(Resume[]::new);
     }
 
-    public int findIndex(String uuid) {
-        for (Map.Entry<String, Resume> entry : mapResumes.entrySet()) {
-            if (uuid.equals(entry.getKey())) {
-                return Integer.parseInt(entry.getKey());
+    @Override
+    public boolean isExist(Object searchKey){
+        for (Map.Entry<String, Resume> entry : mapResumes.entrySet()){
+            if (Objects.equals(searchKey,entry.getKey())){
+                return true;
             }
         }
-        return -1;
+        return false;
+    }
+
+    public String findSearchKey(String uuid) {
+       return uuid;
     }
 }

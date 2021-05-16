@@ -9,24 +9,24 @@ public class ListStorage extends AbstractStorage {
     protected List<Resume> resumes = new ArrayList<>();
 
     @Override
-    void deleteFrom(int index) {
-        resumes.remove(index);
+    void deleteFrom(Object index) {
+        resumes.remove(((Integer) index).intValue());
     }
 
     @Override
-    void saveTo(Resume resume, int index) {
+    void saveTo(Resume resume, Object index) {
         resumes.add(resume);
     }
 
     @Override
-    public Resume getFrom(int index) {
-        return resumes.get(index);
+    public Resume getFrom(Object index) {
+        return resumes.get((Integer) index);
     }
 
     @Override
-    public void updateTo(int index, Resume resume) {
-        resumes.set(index, resume);
-        System.out.println("Resume " + resumes.get(index).getUuid() + " is updated");
+    public void updateTo(Object index, Resume resume) {
+        resumes.set((Integer) index, resume);
+        System.out.println("Resume " + resumes.get((Integer) index).getUuid() + " is updated");
     }
 
     @Override
@@ -45,12 +45,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public int findIndex(String uuid) {
+    boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    public Integer findSearchKey(String uuid) {
         for (Resume r : resumes) {
             if (Objects.equals(r.getUuid(), uuid)) {
                 return resumes.indexOf(r);
             }
         }
-        return -1;
+        return null;
     }
 }
