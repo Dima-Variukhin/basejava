@@ -6,22 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
-    private final Storage storage;
-
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
-        this.storage = storage;
-    }
-
-    @Test
-    public void size() {
-        assertSize(3);
-    }
-
-    @Test
-    public void clear() {
-        storage.clear();
-        assertSize(0);
     }
 
     @Test(expected = StorageException.class)
@@ -34,9 +20,5 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
             }
         }
         storage.save(new Resume());
-    }
-
-    public void assertSize(int size) {
-        Assert.assertEquals(size, storage.size());
     }
 }

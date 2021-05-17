@@ -7,26 +7,26 @@ import com.basejava.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage {
     @Override
     public void delete(String uuid) {
-        Object index = getExistedElement(uuid);
-        deleteFrom(index);
+        Object searchKey = getExistedElement(uuid);
+        deleteFrom(searchKey);
     }
 
     @Override
     public void save(Resume resume) {
-        Object index = getNotExistedElement(resume.getUuid());
-        saveTo(resume, index);
+        Object searchKey = getNotExistedElement(resume.getUuid());
+        saveTo(resume, searchKey);
     }
 
     @Override
     public void update(Resume resume) {
-        Object index = getExistedElement(resume.getUuid());
-        updateTo(index, resume);
+        Object searchKey = getExistedElement(resume.getUuid());
+        updateTo(searchKey, resume);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object index = getExistedElement(uuid);
-        return getFrom(index);
+        Object searchKey = getExistedElement(uuid);
+        return getFrom(searchKey);
     }
 
     private Object getExistedElement(String uuid) {
