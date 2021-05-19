@@ -40,8 +40,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return resumes.toArray(Resume[]::new);
+    public List<Resume> getAllSorted() {
+        return resumes;
     }
 
     @Override

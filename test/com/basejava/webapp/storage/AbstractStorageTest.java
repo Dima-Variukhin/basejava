@@ -7,6 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractStorageTest {
     private static final String UUID_1 = "1";
     private static final String UUID_2 = "2";
@@ -86,9 +89,12 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
-        Resume[] resumes = {new Resume(UUID_1), new Resume((UUID_2)), new Resume(UUID_3)};
-        Assert.assertArrayEquals(resumes, storage.getAll());
+    public void getAllSorted() {
+        List<Resume> resumes = new ArrayList<>();
+        resumes.add(new Resume(UUID_1));
+        resumes.add(new Resume(UUID_2));
+        resumes.add(new Resume(UUID_3));
+        Assert.assertEquals(resumes, storage.getAllSorted());
     }
 
     public void assertSize(int size) {

@@ -4,6 +4,8 @@ import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
 
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
     @Override
     public void delete(String uuid) {
@@ -44,6 +46,8 @@ public abstract class AbstractStorage implements Storage {
         }
         return searchKey;
     }
+
+    public abstract List<Resume> getAllSorted();
 
     public abstract Resume getFrom(Object index);
 
