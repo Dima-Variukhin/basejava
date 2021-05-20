@@ -26,28 +26,28 @@ public class MapStorageFullName extends AbstractStorage {
     }
 
     @Override
-    public Resume getFrom(Object searchKey) {
-        return mapResumesFullName.remove((((Resume) searchKey).getFullName()));
+    public Resume getFrom(Object searchFullName) {
+        return mapResumesFullName.remove((((Resume) searchFullName).getFullName()));
     }
 
     @Override
-    public void updateTo(Object searchKey, Resume resume) {
-        mapResumesFullName.put(((Resume) searchKey).getFullName(), resume);
+    public void updateTo(Object searchFullName, Resume resume) {
+        mapResumesFullName.put(((Resume) searchFullName).getFullName(), resume);
     }
 
     @Override
-    void deleteFrom(Object searchKey) {
-        mapResumesFullName.remove(((Resume) searchKey).getFullName());
+    void deleteFrom(Object searchFullName) {
+        mapResumesFullName.remove(((Resume) searchFullName).getFullName());
     }
 
     @Override
-    void saveTo(Resume resume, Object searchKey) {
-        mapResumesFullName.put(((Resume) searchKey).getFullName(), resume);
+    void saveTo(Resume resume, Object searchFullName) {
+        mapResumesFullName.put(((Resume) searchFullName).getFullName(), resume);
     }
 
     @Override
-    boolean isExist(Object searchKey) {
-        return mapResumesFullName.containsValue(((Resume) searchKey));
+    boolean isExist(Object searchFullName) {
+        return mapResumesFullName.containsValue(((Resume) searchFullName));
     }
 
     public Resume findSearchKey(String uuid) {
