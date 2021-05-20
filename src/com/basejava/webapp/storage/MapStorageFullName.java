@@ -2,12 +2,9 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class MapStorageFullName extends AbstractStorage {
+public class MapStorageFullName extends AbstractStorage  {
     private Map<String, Resume> mapResumesFullName = new HashMap<>();
 
     @Override
