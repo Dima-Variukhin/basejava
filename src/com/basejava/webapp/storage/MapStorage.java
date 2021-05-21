@@ -46,7 +46,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public boolean isExist(Object searchKey) {
-        return mapResumes.containsKey(((Resume) searchKey).getFullName());
+        return mapResumes.containsKey(((String) searchKey));
     }
 
     public String findSearchKey(String uuid) {

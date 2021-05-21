@@ -35,11 +35,6 @@ public class MapStorageResume extends AbstractStorage {
     }
 
     @Override
-    public Object findSearchKey(String uuid) {
-        return new Resume(uuid);
-    }
-
-    @Override
     void deleteFrom(Object searchKey) {
         resumeMap.remove((((Resume) searchKey).getUuid()), ((Resume) searchKey));
     }
@@ -52,5 +47,10 @@ public class MapStorageResume extends AbstractStorage {
     @Override
     boolean isExist(Object searchKey) {
         return resumeMap.containsValue(((Resume) searchKey));
+    }
+
+    @Override
+    public Object findSearchKey(String uuid) {
+        return new Resume(uuid);
     }
 }
