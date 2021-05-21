@@ -5,6 +5,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
@@ -54,7 +55,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(storage, 0, size)));
+        List<Resume> list = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(storage, 0, size)));
+        list.sort(Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName));
+        return list;
     }
 
     public boolean isExist(Object index) {

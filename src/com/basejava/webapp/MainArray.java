@@ -1,7 +1,7 @@
 package com.basejava.webapp;
 
 import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.storage.MapStorage;
+import com.basejava.webapp.storage.MapStorageResume;
 import com.basejava.webapp.storage.Storage;
 
 import java.io.BufferedReader;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class MainArray {
     // обьявляем переменную класса типа интерфейса
-    private final static Storage ARRAY_STORAGE = new MapStorage();
+    private final static Storage ARRAY_STORAGE = new MapStorageResume();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

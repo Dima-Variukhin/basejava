@@ -9,7 +9,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
     }
-    AbstractStorageTest abstractStorageTest;
 
     @Test(expected = StorageException.class)
     public void arrayOverflow() {

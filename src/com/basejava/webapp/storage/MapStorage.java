@@ -2,10 +2,7 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
     private Map<String, Resume> mapResumes = new HashMap<>();
@@ -42,7 +39,9 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return new ArrayList<>(mapResumes.values());
+        List<Resume> list = new ArrayList<>(mapResumes.values());
+        list.sort(Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName));
+        return list;
     }
 
     @Override
