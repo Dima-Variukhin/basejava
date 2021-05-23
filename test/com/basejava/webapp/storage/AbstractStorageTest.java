@@ -24,9 +24,9 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(new Resume(UUID_1, "default"));
+        storage.save(new Resume(UUID_2, "default"));
+        storage.save(new Resume(UUID_3, "default"));
     }
 
     @Test
@@ -91,9 +91,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllSorted() {
         List<Resume> resumes = new ArrayList<>();
-        resumes.add(new Resume(UUID_1));
-        resumes.add(new Resume(UUID_2));
-        resumes.add(new Resume(UUID_3));
+        resumes.add(new Resume(UUID_1, "default"));
+        resumes.add(new Resume(UUID_2, "default"));
+        resumes.add(new Resume(UUID_3, "default"));
         Assert.assertEquals(resumes, storage.getAllSorted());
     }
 

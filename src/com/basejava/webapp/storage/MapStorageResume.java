@@ -20,7 +20,7 @@ public class MapStorageResume extends AbstractStorage {
     @Override
     public List<Resume> getAllSorted() {
         List<Resume> list = new ArrayList<>(resumeMap.values());
-        list.sort(Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName));
+        list.sort(RESUME_COMPARATOR);
         return list;
     }
 
