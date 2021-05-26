@@ -4,7 +4,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorageResume extends AbstractStorage {
+public class MapStorageResume extends AbstractStorage<Resume> {
     private Map<String, Resume> resumeMap = new HashMap<>();
 
     @Override
@@ -23,32 +23,32 @@ public class MapStorageResume extends AbstractStorage {
     }
 
     @Override
-    public Resume getFrom(Object searchKey) {
-        return resumeMap.get(((Resume) searchKey).getUuid());
+    public Resume getFrom(Resume resume) {
+        return resume;
     }
 
     @Override
-    public void updateTo(Object searchKey, Resume resume) {
-        resumeMap.put(((Resume) searchKey).getUuid(), resume);
+    public void updateTo(Resume resume, Resume r) {
+        resumeMap.put(r.getUuid(), r);
     }
 
     @Override
-    void deleteFrom(Object searchKey) {
-        resumeMap.remove((((Resume) searchKey).getUuid()), ((Resume) searchKey));
+    void deleteFrom(Resume resume) {
+        resumeMap.remove((resume.getUuid()));
     }
 
     @Override
-    void saveTo(Resume resume, Object searchKey) {
-        resumeMap.put(((Resume) searchKey).getUuid(), resume);
+    void saveTo(Resume r, Resume resume) {
+        resumeMap.put(r.getUuid(), r);
     }
 
     @Override
-    boolean isExist(Object searchKey) {
-        return resumeMap.containsValue(((Resume) searchKey));
+    boolean isExist(Resume resume) {
+        return resume != null;
     }
 
     @Override
-    public Object findSearchKey(String uuid) {
-        return new Resume(uuid);
+    public Resume findSearchKey(String uuid) {
+        return resumeMap.get(uuid);
     }
 }

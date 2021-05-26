@@ -3,12 +3,10 @@ package com.basejava.webapp.storage;
 import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -27,46 +25,39 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    void saveTo(Resume resume, Object index) {
+    void saveTo(Resume resume, Integer index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        saveToArray(resume, (Integer) index);
+        saveToArray(resume, index);
         size++;
     }
 
     @Override
-    void deleteFrom(Object index) {
-        deleteFromArray((Integer) index);
+    void deleteFrom(Integer index) {
+        deleteFromArray(index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    public void updateTo(Object index, Resume resume) {
-        storage[(int) index] = resume;
+    public void updateTo(Integer index, Resume resume) {
+        storage[index] = resume;
         System.out.println("Resume " + storage[(int) index].getUuid() + " is updated");
     }
 
     @Override
-    public Resume getFrom(Object index) {
-        return storage[(int) index];
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return getAll();
+    public Resume getFrom(Integer index) {
+        return storage[index];
     }
 
     @Override
     public List<Resume> getAll() {
-        List<Resume> list = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(storage, 0, size)));
-        list.sort(Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName));
-        return list;
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
-    public boolean isExist(Object index) {
-        return (Integer) index >= 0;
+    public boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     public abstract void saveToArray(Resume resume, int index);

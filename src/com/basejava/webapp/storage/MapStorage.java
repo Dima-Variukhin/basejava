@@ -4,27 +4,27 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
     private Map<String, Resume> mapResumes = new HashMap<>();
 
     @Override
-    public Resume getFrom(Object searchKey) {
-        return mapResumes.get(((String) searchKey));
+    public Resume getFrom(String searchKey) {
+        return mapResumes.get(searchKey);
     }
 
     @Override
-    public void updateTo(Object searchKey, Resume resume) {
-        mapResumes.put((String) searchKey, resume);
+    public void updateTo(String searchKey, Resume resume) {
+        mapResumes.put(searchKey, resume);
     }
 
     @Override
-    void deleteFrom(Object searchKey) {
-        mapResumes.remove(((String) searchKey));
+    void deleteFrom(String searchKey) {
+        mapResumes.remove(searchKey);
     }
 
     @Override
-    void saveTo(Resume resume, Object searchKey) {
-        mapResumes.put((String) searchKey, resume);
+    void saveTo(Resume resume, String searchKey) {
+        mapResumes.put(searchKey, resume);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public boolean isExist(Object searchKey) {
-        return mapResumes.containsKey(((String) searchKey));
+    public boolean isExist(String searchKey) {
+        return mapResumes.containsKey(searchKey);
     }
 
     public String findSearchKey(String uuid) {

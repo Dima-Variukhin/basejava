@@ -5,28 +5,28 @@ import com.basejava.webapp.model.Resume;
 import java.util.*;
 
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
     protected List<Resume> resumes = new ArrayList<>();
 
     @Override
-    void deleteFrom(Object index) {
-        resumes.remove(((Integer) index).intValue());
+    void deleteFrom(Integer index) {
+        resumes.remove(index.intValue());
     }
 
     @Override
-    void saveTo(Resume resume, Object index) {
+    void saveTo(Resume resume, Integer index) {
         resumes.add(resume);
     }
 
     @Override
-    public Resume getFrom(Object index) {
-        return resumes.get((Integer) index);
+    public Resume getFrom(Integer index) {
+        return resumes.get(index);
     }
 
     @Override
-    public void updateTo(Object index, Resume resume) {
-        resumes.set((Integer) index, resume);
-        System.out.println("Resume " + resumes.get((Integer) index).getUuid() + " is updated");
+    public void updateTo(Integer index, Resume resume) {
+        resumes.set(index, resume);
+        System.out.println("Resume " + resumes.get(index).getUuid() + " is updated");
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    boolean isExist(Object searchKey) {
+    boolean isExist(Integer searchKey) {
         return searchKey != null;
     }
 
