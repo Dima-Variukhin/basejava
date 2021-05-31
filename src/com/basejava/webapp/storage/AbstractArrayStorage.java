@@ -43,7 +43,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     @Override
     public void updateTo(Integer index, Resume resume) {
         storage[index] = resume;
-        System.out.println("Resume " + storage[(int) index].getUuid() + " is updated");
+        System.out.println("Resume " + storage[index].getUuid() + " is updated");
     }
 
     @Override
