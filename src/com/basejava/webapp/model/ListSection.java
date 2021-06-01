@@ -22,12 +22,12 @@ public class ListSection extends AbstractSection {
 
         ListSection that = (ListSection) o;
 
-        return elements.equals(that.elements);
+        return Objects.equals(elements, that.elements);
     }
 
     @Override
     public int hashCode() {
-        return elements.hashCode();
+        return elements != null ? elements.hashCode() : 0;
     }
 
     @Override

@@ -22,12 +22,12 @@ public class OrganizationSection extends AbstractSection {
 
         OrganizationSection that = (OrganizationSection) o;
 
-        return organizations.equals(that.organizations);
+        return Objects.equals(organizations, that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return organizations.hashCode();
+        return organizations != null ? organizations.hashCode() : 0;
     }
 
     @Override

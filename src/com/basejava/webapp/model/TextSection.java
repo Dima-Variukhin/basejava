@@ -21,12 +21,12 @@ public class TextSection extends AbstractSection {
 
         TextSection that = (TextSection) o;
 
-        return info.equals(that.info);
+        return Objects.equals(info, that.info);
     }
 
     @Override
     public int hashCode() {
-        return info.hashCode();
+        return info != null ? info.hashCode() : 0;
     }
 
     @Override
