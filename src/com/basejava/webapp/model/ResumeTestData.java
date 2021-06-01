@@ -1,5 +1,6 @@
 package com.basejava.webapp.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +10,16 @@ public class ResumeTestData {
         List<String> listAchievements = new ArrayList<>();
         List<String> listQualifications = new ArrayList<>();
 
-        Organization coursera = new Organization(03_2013, 05_2013, new Link("Coursera", "https://www.coursera.org/learn/progfun1"),
+        Organization coursera = new Organization(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), new Link("Coursera", "https://www.coursera.org/learn/progfun1"),
                 "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky");
 
-        Organization luxoft = new Organization(03 / 2011, 04 / 2011, new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html"),
+        Organization luxoft = new Organization(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html"),
                 "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
 
-        Organization siemens = new Organization(01 / 2005, 04 / 2005, new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"),
+        Organization siemens = new Organization(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"),
                 "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
 
-        Organization alcatel = new Organization(09 / 1997, 03 / 1998, new Link("Alcatel", null),
+        Organization alcatel = new Organization(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), new Link("Alcatel", null),
                 "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
 
         List<String> organizations = new ArrayList<>();
