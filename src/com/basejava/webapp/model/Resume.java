@@ -35,6 +35,8 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    
+
     public Map<SectionType, AbstractSection> getSections() {
         return sections;
     }
