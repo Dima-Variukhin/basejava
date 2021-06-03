@@ -9,14 +9,13 @@ public class ResumeTestData {
         Resume resume = new Resume("Grigory");
         List<String> listAchievements = new ArrayList<>();
         List<String> listQualifications = new ArrayList<>();
-
         Organization coursera = new Organization(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), new Link("Coursera", "https://www.coursera.org/learn/progfun1"),
-                "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky");
+                "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
 
-        Organization luxoft = new Organization(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html"),
+        Organization luxoft = new Organization(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html\n"),
                 "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
 
-        Organization siemens = new Organization(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"),
+        Organization siemens = new Organization(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), new Link("Siemens AG", "https://new.siemens.com/ru/ru.html\n"),
                 "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
 
         Organization alcatel = new Organization(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), new Link("Alcatel", null),
@@ -29,17 +28,17 @@ public class ResumeTestData {
         organizations.add(alcatel.getTitle());
         listAchievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven." +
                 " Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\"." +
-                " Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.");
+                " Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.\n");
         listAchievements.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio," +
-                " DuoSecurity, Google Authenticator, Jira, Zendesk.");
+                " DuoSecurity, Google Authenticator, Jira, Zendesk.\n");
         listAchievements.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS," +
                 " LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей," +
-                " интеграция CIFS/SMB java сервера.");
+                " интеграция CIFS/SMB java сервера.\n");
         listAchievements.add("Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT)," +
                 " Commet, HTML5, Highstock для алгоритмического трейдинга.\n");
         listAchievements.add("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish)." +
                 " Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).\n");
-        listAchievements.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
+        listAchievements.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.\n");
 
         listQualifications.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2\n");
         listQualifications.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce\n");
@@ -61,27 +60,25 @@ public class ResumeTestData {
         listQualifications.add("Родной русский, английский \"upper intermediate\"\n");
 
         resume.getSections().put(SectionType.PERSONAL,
-                new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+                new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.\n"));
 
         resume.getSections().put(SectionType.OBJECTIVE,
-                new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+                new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям\n"));
         resume.getSections().put(SectionType.ACHIEVEMENTS, new ListSection(listAchievements));
         resume.getSections().put(SectionType.QUALIFICATIONS, new ListSection(listQualifications));
         resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(organizations));
 
-        resume.getContacts().put(ContactType.EMAIL, "gkislin@yandex.ru");
-        resume.getContacts().put(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.getContacts().put(ContactType.HOMEPAGE, "http://gkislin.ru/");
-        resume.getContacts().put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin/");
-        resume.getContacts().put(ContactType.PHONE, "+7(921) 855-0482");
-        resume.getContacts().put(ContactType.SKYPE, "grigory.kislin");
-        resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        resume.getContacts().put(ContactType.EMAIL, "gkislin@yandex.ru\n");
+        resume.getContacts().put(ContactType.GITHUB, "https://github.com/gkislin\n");
+        resume.getContacts().put(ContactType.HOMEPAGE, "http://gkislin.ru/\n");
+        resume.getContacts().put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin/\n");
+        resume.getContacts().put(ContactType.PHONE, "+7(921) 855-0482\n");
+        resume.getContacts().put(ContactType.SKYPE, "grigory.kislin\n");
+        resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin\n");
 
-        for (SectionType sectionType : SectionType.values()) {
-            System.out.println(sectionType.getTitle());
-        }
-        for (ContactType contactType : ContactType.values()) {
-            System.out.println(contactType.getTitle());
-        }
+
+
+        System.out.println(resume.getSections());
+        System.out.println(resume.getContacts());
     }
 }
