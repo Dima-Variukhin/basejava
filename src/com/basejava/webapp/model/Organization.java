@@ -23,26 +23,6 @@ public class Organization {
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public Link getHomePage() {
-        return homePage;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
