@@ -77,7 +77,6 @@ public class ResumeTestData {
         resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin\n");
 
 
-
         System.out.println(resume.getSections());
         System.out.println(resume.getContacts());
     }
