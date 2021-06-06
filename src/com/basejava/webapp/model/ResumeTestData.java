@@ -1,5 +1,6 @@
 package com.basejava.webapp.model;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,5 +80,20 @@ public class ResumeTestData {
 
         System.out.println(resume.getSections());
         System.out.println(resume.getContacts());
+
+        File file = new File("/home/metamorfag/IdeaProjects/basejava/src");
+        recursiveSearch(file);
+    }
+
+    public static void recursiveSearch(File dir) {
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                System.out.println("directory " + file.getName());
+                recursiveSearch(file);
+            } else {
+                System.out.println("      File : " + file.getName());
+            }
+        }
     }
 }
