@@ -33,8 +33,8 @@ public class ResumeTestData {
         OrganizationList courseraOrg = new OrganizationList(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
         OrganizationList luxoftOrg = new OrganizationList(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
         OrganizationList siementsOrg = new OrganizationList(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
-
         OrganizationList alcatelOrg = new OrganizationList(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
+
         List<OrganizationList> courseraList = new ArrayList<>();
         courseraList.add(courseraOrg);
         List<OrganizationList> luxoftList = new ArrayList<>();
