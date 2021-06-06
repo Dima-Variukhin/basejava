@@ -96,4 +96,8 @@ public class ResumeTestData {
             }
         }
     }
+
+    public static Resume createResume(String fullName, String uuid) {
+        return new Resume(uuid, fullName);
+    }
 }
