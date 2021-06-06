@@ -30,17 +30,18 @@ public class ResumeTestData {
         Resume resume = new Resume(uuid, fullName);
         List<String> listAchievements = new ArrayList<>();
         List<String> listQualifications = new ArrayList<>();
-        Organization coursera = new Organization(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), new Link("Coursera", "https://www.coursera.org/learn/progfun1"),
-                "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
+        OrganizationList courseraOrg = new OrganizationList(LocalDate.of(2013, 3, 1),LocalDate.of(2013, 5, 1),"Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
+        OrganizationList luxoftOrg = new OrganizationList(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1),"Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
+        OrganizationList siementsOrg = new OrganizationList(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1),"Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
+        OrganizationList alcatelOrg = new OrganizationList(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1),"Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
 
-        Organization luxoft = new Organization(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html\n"),
-                "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
+        Organization coursera = new Organization((List<OrganizationList>) courseraOrg,new Link("Coursera", "https://www.coursera.org/learn/progfun1"));
+        Organization luxoft = new Organization((List<OrganizationList>) luxoftOrg, new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html\n"));
+        Organization siemens = new Organization((List<OrganizationList>) siementsOrg,new Link("Siemens AG", "https://new.siemens.com/ru/ru.html\n"));
+        Organization alcatel = new Organization((List<OrganizationList>) alcatelOrg,new Link("Alcatel", null));
 
-        Organization siemens = new Organization(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), new Link("Siemens AG", "https://new.siemens.com/ru/ru.html\n"),
-                "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
 
-        Organization alcatel = new Organization(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), new Link("Alcatel", null),
-                "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
+
 
         List<String> organizations = new ArrayList<>();
         organizations.add(siemens + "\n");
