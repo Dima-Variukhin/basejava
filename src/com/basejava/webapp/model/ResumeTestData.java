@@ -7,7 +7,27 @@ import java.util.List;
 
 public class ResumeTestData {
     public static void main(String[] args) {
-        Resume resume = new Resume("Grigory");
+        System.out.println(createResume("Grigory", "uuid1").getSections());
+        System.out.println(createResume("Grigory", "uuid1").getContacts());
+
+        File file = new File("/home/metamorfag/IdeaProjects/basejava/src");
+        recursiveSearch(file);
+    }
+
+    public static void recursiveSearch(File dir) {
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                System.out.println("directory " + file.getName());
+                recursiveSearch(file);
+            } else {
+                System.out.println("      File : " + file.getName());
+            }
+        }
+    }
+
+    public static Resume createResume(String fullName, String uuid) {
+        Resume resume = new Resume(uuid, fullName);
         List<String> listAchievements = new ArrayList<>();
         List<String> listQualifications = new ArrayList<>();
         Organization coursera = new Organization(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), new Link("Coursera", "https://www.coursera.org/learn/progfun1"),
@@ -76,28 +96,6 @@ public class ResumeTestData {
         resume.getContacts().put(ContactType.PHONE, "+7(921) 855-0482\n");
         resume.getContacts().put(ContactType.SKYPE, "grigory.kislin\n");
         resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin\n");
-
-
-        System.out.println(resume.getSections());
-        System.out.println(resume.getContacts());
-
-        File file = new File("/home/metamorfag/IdeaProjects/basejava/src");
-        recursiveSearch(file);
-    }
-
-    public static void recursiveSearch(File dir) {
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                System.out.println("directory " + file.getName());
-                recursiveSearch(file);
-            } else {
-                System.out.println("      File : " + file.getName());
-            }
-        }
-    }
-
-    public static Resume createResume(String fullName, String uuid) {
-        return new Resume(uuid, fullName);
+        return resume;
     }
 }
