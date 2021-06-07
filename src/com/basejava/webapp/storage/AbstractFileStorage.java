@@ -45,12 +45,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void updateTo(File file, Resume resume) {
-        doDelete(file);
         try {
+            doDelete(file);
             file.createNewFile();
             doWrite(resume, file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new StorageException("IO error", file.getName(), e);
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         ) {
             pw.print("");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new StorageException("IO error", e.toString());
         }
     }
 
