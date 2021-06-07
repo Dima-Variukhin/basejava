@@ -11,19 +11,7 @@ public class ResumeTestData {
         System.out.println(createResume("Grigory", "uuid1").getContacts());
 
         File file = new File("/home/metamorfag/IdeaProjects/basejava/src");
-        recursiveSearch(file);
-    }
-
-    public static void recursiveSearch(File dir) {
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                System.out.println("directory " + file.getName());
-                recursiveSearch(file);
-            } else {
-                System.out.println("      File : " + file.getName());
-            }
-        }
+        RecursiveSearch.recursiveSearch(file);
     }
 
     public static Resume createResume(String fullName, String uuid) {
