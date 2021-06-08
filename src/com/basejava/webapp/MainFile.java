@@ -26,4 +26,17 @@ public class MainFile {
             throw new RuntimeException();
         }
     }
+
+    public static void recursiveSearch(File dir) {
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                System.out.println("directory " + file.getName());
+                recursiveSearch(file);
+            } else {
+                System.out.println("      File : " + file.getName());
+            }
+        }
+    }
 }
+

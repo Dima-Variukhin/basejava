@@ -1,10 +1,15 @@
 package com.basejava.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganizationSection extends AbstractSection {
     protected List<String> organizations;
+
+    public OrganizationSection(String... organizations) {
+        this(Arrays.asList(organizations));
+    }
 
     public OrganizationSection(List<String> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");

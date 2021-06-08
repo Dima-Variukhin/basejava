@@ -5,27 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeTestData {
-    public static void main(String[] args) {
-        System.out.println(createResume("Grigory", "uuid1").getSections());
-        System.out.println(createResume("Grigory", "uuid1").getContacts());
-    }
-
     public static Resume createResume(String fullName, String uuid) {
         Resume resume = new Resume(uuid, fullName);
         List<String> listAchievements = new ArrayList<>();
         List<String> listQualifications = new ArrayList<>();
-        OrganizationList courseraOrg = new OrganizationList(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
-        OrganizationList luxoftOrg = new OrganizationList(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
-        OrganizationList siementsOrg = new OrganizationList(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
-        OrganizationList alcatelOrg = new OrganizationList(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
+        Organization.Position courseraOrg = new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
+        Organization.Position luxoftOrg = new Organization.Position(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
+        Organization.Position siementsOrg = new Organization.Position(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
+        Organization.Position alcatelOrg = new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
 
-        List<OrganizationList> courseraList = new ArrayList<>();
+        List<Organization.Position> courseraList = new ArrayList<>();
         courseraList.add(courseraOrg);
-        List<OrganizationList> luxoftList = new ArrayList<>();
+        List<Organization.Position> luxoftList = new ArrayList<>();
         luxoftList.add(luxoftOrg);
-        List<OrganizationList> siemensList = new ArrayList<>();
+        List<Organization.Position> siemensList = new ArrayList<>();
         luxoftList.add(siementsOrg);
-        List<OrganizationList> alcatelList = new ArrayList<>();
+        List<Organization.Position> alcatelList = new ArrayList<>();
         luxoftList.add(alcatelOrg);
 
         Organization coursera = new Organization(courseraList, new Link("Coursera", "https://www.coursera.org/learn/progfun1"));
