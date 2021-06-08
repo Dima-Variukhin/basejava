@@ -1,6 +1,5 @@
 package com.basejava.webapp.model;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +8,6 @@ public class ResumeTestData {
     public static void main(String[] args) {
         System.out.println(createResume("Grigory", "uuid1").getSections());
         System.out.println(createResume("Grigory", "uuid1").getContacts());
-
-        File file = new File("/home/metamorfag/IdeaProjects/basejava/src");
-        RecursiveSearch.recursiveSearch(file);
     }
 
     public static Resume createResume(String fullName, String uuid) {
