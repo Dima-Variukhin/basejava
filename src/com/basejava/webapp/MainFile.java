@@ -25,12 +25,18 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException();
         }
+        recursiveSearch(new File("/home/metamorfag/IdeaProjects/basejava/src"));
     }
 
     public static void recursiveSearch(File dir) {
         File[] files = dir.listFiles();
+        var count = 0;
         for (File file : files) {
             if (file.isDirectory()) {
+                count++;
+                for (int i = 0; i < count; i++) {
+                    System.out.print("  ");
+                }
                 System.out.println("directory " + file.getName());
                 recursiveSearch(file);
             } else {
