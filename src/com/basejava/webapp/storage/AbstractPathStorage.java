@@ -60,23 +60,23 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     void deleteFrom(Path path) {
-        if (!path.toFile().delete()) {
-            throw new StorageException("Path delete error", path.toFile().getName());
+        if (!path.delete()) {
+            throw new StorageException("Path delete error", path.getName());
         }
     }
 
     @Override
     void saveTo(Resume resume, Path path) {
         try {
-            path.toFile().createNewFile();
+            path.createNewFile();
         } catch (IOException e) {
-            throw new StorageException("Couldn't create Path " + path.toFile().getAbsolutePath(), path.toFile().getName(), e);
+            throw new StorageException("Couldn't create Path " + path.toFile().getAbsolutePath(), path.getName(), e);
         }
     }
 
     @Override
     boolean isExist(Path path) {
-        return path.toFile().exists();
+        return path.exists();
     }
 
     @Override
@@ -90,7 +90,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        String[] list = directory.toFile().list();
+        String[] list = directory.list();
         if (list == null) {
             throw new StorageException("Directory read error", null);
         }
