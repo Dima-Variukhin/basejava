@@ -7,13 +7,14 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     protected Path directory;
 
-    public AbstractPathStorage(String dir) {
+    protected AbstractPathStorage(String dir) {
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
@@ -23,7 +24,15 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public List<Resume> getAll() {
-
+        Path[] paths = directorylistPaths();
+        if (paths == null) {
+            throw new StorageException("Directory read error", null);
+        }
+        List<Resume> list = new ArrayList<>(paths.length);
+        for (Path Path : paths) {
+            list.add(getFrom(Path));
+        }
+        return list;
     }
 
     @Override
