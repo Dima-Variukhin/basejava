@@ -2,6 +2,7 @@ package com.basejava.webapp.model;
 
 import com.basejava.webapp.util.DateUtil;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.Objects;
 import static com.basejava.webapp.util.DateUtil.NOW;
 import static com.basejava.webapp.util.DateUtil.of;
 
-public class Organization {
+public class Organization implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Position> positions;
     private Link homePage;
 
@@ -41,7 +43,8 @@ public class Organization {
         return "Organization{" + positions + "," + homePage + '}';
     }
 
-    public static class Position {
+    public static class Position implements Serializable {
+        private static final long serialVersionUID = 1L;
         private LocalDate startDate;
         private LocalDate endDate;
         private String title;

@@ -8,10 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("/home/metamorfag/IdeaProjects/basejava/src");
+
     private static final String UUID_1 = "1";
     private static final String UUID_2 = "2";
     private static final String UUID_3 = "3";
