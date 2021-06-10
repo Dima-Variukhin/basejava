@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     protected Path directory;
@@ -24,7 +25,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     public List<Resume> getAll() {
         try {
-            return (List<Resume>) Files.list(directory);
+            return Files.list(directory).map(this::getFrom).collect(Collectors.toList());
         } catch (IOException e) {
             throw new StorageException("Directory read error", e.getMessage());
         }
