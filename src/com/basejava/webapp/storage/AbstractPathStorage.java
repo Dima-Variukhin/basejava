@@ -27,7 +27,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             return Files.list(directory).map(this::getFrom).collect(Collectors.toList());
         } catch (IOException e) {
-            throw new StorageException("Directory read error", e.getMessage());
+            throw new StorageException("Path read error", e.getMessage());
         }
     }
 
