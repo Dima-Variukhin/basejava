@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("/home/metamorfag/IdeaProjects/basejava/src");
+    protected static final File STORAGE_DIR = new File("/home/metamorfag/IdeaProjects/basejava/src/storage");
 
     private static final String UUID_1 = "1";
     private static final String UUID_2 = "2";
@@ -94,8 +94,12 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        Resume resume = ResumeTestData.createResume("Name3", UUID_3);
-        Assert.assertEquals(resume, storage.get(UUID_3));
+        Resume resume3 = ResumeTestData.createResume("Name3", UUID_3);
+        Resume resume2 = ResumeTestData.createResume("Name2", UUID_2);
+        Resume resume1 = ResumeTestData.createResume("Name1", UUID_1);
+        Assert.assertEquals(resume3, storage.get(UUID_3));
+        Assert.assertEquals(resume2, storage.get(UUID_2));
+        Assert.assertEquals(resume1, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
