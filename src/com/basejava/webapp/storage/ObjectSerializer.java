@@ -5,11 +5,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamPathStorage extends AbstractPathStorage implements SerializationStrategy {
-    protected ObjectStreamPathStorage(String dir, SerializationStrategy serializationStrategy) {
-        super(dir, serializationStrategy);
-    }
-
+public class ObjectSerializer implements SerializationStrategy {
     @Override
     public Resume doRead(InputStream is) throws IOException {
         try (ObjectInputStream ois = new ObjectInputStream(is)) {
