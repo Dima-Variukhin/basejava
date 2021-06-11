@@ -17,8 +17,8 @@ public class PathStorage extends AbstractStorage<Path> {
     SerializationStrategy serializationStrategy;
 
     protected PathStorage(String dir, SerializationStrategy serializationStrategy) {
-        this.serializationStrategy = serializationStrategy;
         directory = Paths.get(dir);
+        this.serializationStrategy = serializationStrategy;
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + " is not directory or is not writable");
@@ -39,7 +39,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             return serializationStrategy.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
-            throw new StorageException("Path read error", path.toFile().getName(), e);
+            throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
     }
 
@@ -69,7 +69,8 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     void saveTo(Resume resume, Path path) {
         try {
-            Files.createDirectory(path);
+            Files.createFile(path);
+            serializationStrategy.doWrite(resume, new BufferedOutputStream(Files.newOutputStream(path)));
         } catch (IOException e) {
             throw new StorageException("Couldn't create Path " + path.getFileName().toString(), e.getMessage());
         }
@@ -92,7 +93,7 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     public int size() {
         try {
-            return (int) Files.size(directory);
+            return (int) Files.list(directory).count();
         } catch (IOException e) {
             throw new StorageException("Path size error", null);
         }
