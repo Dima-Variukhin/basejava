@@ -22,8 +22,8 @@ public class PathStorage extends AbstractStorage<Path> {
 
     protected PathStorage(String dir, SerializationStrategy serializationStrategy) {
         directory = Paths.get(dir);
-        this.serializationStrategy = serializationStrategy;
         Objects.requireNonNull(directory, "directory must not be null");
+        this.serializationStrategy = serializationStrategy;
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + " is not directory or is not writable");
         }
@@ -31,7 +31,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public List<Resume> getAll() {
-        return getDirectory().map(this::getFrom).collect(Collectors.toList());
+        return getFilesList().map(this::getFrom).collect(Collectors.toList());
     }
 
     @Override
@@ -78,24 +78,24 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     boolean isExist(Path path) {
-        return Files.exists(path);
+        return Files.isRegularFile(path);
     }
 
     @Override
     public void clear() {
-        getDirectory().forEach(this::deleteFrom);
+        getFilesList().forEach(this::deleteFrom);
     }
 
     @Override
     public int size() {
-        return (int) getDirectory().count();
+        return (int) getFilesList().count();
     }
 
-    private Stream<Path> getDirectory() {
+    private Stream<Path> getFilesList() {
         try {
             return Files.list(directory);
         } catch (IOException e) {
-            throw new StorageException("Path error", null);
+            throw new StorageException("Path error");
         }
     }
 }
