@@ -25,22 +25,22 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException();
         }
-        recursiveSearch(new File("/home/metamorfag/IdeaProjects/basejava/src"));
+        recursiveSearch(new File("/home/metamorfag/IdeaProjects/basejava/src"), 0);
     }
 
-    public static void recursiveSearch(File dir) {
+    public static void recursiveSearch(File dir, int level) {
         File[] files = dir.listFiles();
-        var count = 0;
-        for (File file : files) {
-            if (file.isDirectory()) {
-                count++;
-                for (int i = 0; i < count; i++) {
-                    System.out.print("  ");
+        if (files != null && files.length > 0) {
+            for (File file : files) {
+                for (int i = 0; i < level; i++) {
+                    System.out.print("\t");
                 }
-                System.out.println("directory " + file.getName());
-                recursiveSearch(file);
-            } else {
-                System.out.println("      File : " + file.getName());
+                if (file.isDirectory()) {
+                    System.out.println("[directory: " + file.getName() + "]");
+                    recursiveSearch(file, level + 1);
+                } else {
+                    System.out.println("File : " + file.getName());
+                }
             }
         }
     }

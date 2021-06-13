@@ -2,6 +2,7 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.storage.serialization.SerializationStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
-    SerializationStrategy serializationStrategy;
+    private SerializationStrategy serializationStrategy;
 
     protected FileStorage(File directory, SerializationStrategy serializationStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
@@ -27,9 +28,7 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     public List<Resume> getAll() {
         File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory read error", null);
-        }
+        nullFileCheck(files, "file get error");
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
             list.add(getFrom(file));
@@ -85,19 +84,22 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                deleteFrom(file);
-            }
+        nullFileCheck(files, "File clear error");
+        for (File file : files) {
+            deleteFrom(file);
         }
     }
 
     @Override
     public int size() {
         String[] list = directory.list();
-        if (list == null) {
-            throw new StorageException("Directory read error", null);
-        }
+        nullFileCheck(list, "File size error");
         return list.length;
+    }
+
+    private void nullFileCheck(Object o, String text) {
+        if (o == null) {
+            throw new StorageException(text, null);
+        }
     }
 }

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
@@ -94,9 +94,6 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        Resume resume3 = ResumeTestData.createResume("Name3", UUID_3);
-        Resume resume2 = ResumeTestData.createResume("Name2", UUID_2);
-        Resume resume1 = ResumeTestData.createResume("Name1", UUID_1);
         Assert.assertEquals(resume3, storage.get(UUID_3));
         Assert.assertEquals(resume2, storage.get(UUID_2));
         Assert.assertEquals(resume1, storage.get(UUID_1));
@@ -109,11 +106,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        List<Resume> resumes = new ArrayList<>();
-        resumes.add(ResumeTestData.createResume("Name1", UUID_1));
-        resumes.add(ResumeTestData.createResume("Name2", UUID_2));
-        resumes.add(ResumeTestData.createResume("Name3", UUID_3));
-        Assert.assertEquals(resumes, storage.getAllSorted());
+        List<Resume> resumes = storage.getAllSorted();
+        Assert.assertEquals(3, resumes.size());
+        Assert.assertEquals(resumes, Arrays.asList(resume1, resume2, resume3));
     }
 
     public void assertSize(int size) {
