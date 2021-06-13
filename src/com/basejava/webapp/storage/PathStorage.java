@@ -31,7 +31,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public List<Resume> getAll() {
-        return catchStorageException("Path read error").map(this::getFrom).collect(Collectors.toList());
+        return getDirectory().map(this::getFrom).collect(Collectors.toList());
     }
 
     @Override
@@ -83,19 +83,19 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        catchStorageException("Path delete error").forEach(this::deleteFrom);
+        getDirectory().forEach(this::deleteFrom);
     }
 
     @Override
     public int size() {
-        return (int) catchStorageException("Path size error").count();
+        return (int) getDirectory().count();
     }
 
-    private Stream<Path> catchStorageException(String text) {
+    private Stream<Path> getDirectory() {
         try {
             return Files.list(directory);
         } catch (IOException e) {
-            throw new StorageException(text, null);
+            throw new StorageException("Path error", null);
         }
     }
 }
