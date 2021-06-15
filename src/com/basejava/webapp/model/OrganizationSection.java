@@ -8,6 +8,9 @@ public class OrganizationSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
     protected List<String> organizations;
 
+    public OrganizationSection() {
+    }
+
     public OrganizationSection(String... organizations) {
         this(Arrays.asList(organizations));
     }

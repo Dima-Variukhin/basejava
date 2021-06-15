@@ -8,6 +8,9 @@ public class ListSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
     protected List<String> elements;
 
+    public ListSection() {
+    }
+
     public ListSection(String... elements) {
         this(Arrays.asList(elements));
     }

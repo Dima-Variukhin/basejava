@@ -1,7 +1,11 @@
 package com.basejava.webapp.model;
 
 import com.basejava.webapp.util.DateUtil;
+import com.basejava.webapp.util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -43,12 +47,18 @@ public class Organization implements Serializable {
         return "Organization{" + positions + "," + homePage + '}';
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
         private static final long serialVersionUID = 1L;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
         private String title;
         private String description;
+
+        public Position() {
+        }
 
         //applied pattern Special-Case with "NOW"
         public Position(int startYear, Month startMonth, String title, String description) {
