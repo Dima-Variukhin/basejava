@@ -53,7 +53,7 @@ public class DataStreamSerializer implements SerializationStrategy {
                             dos.writeUTF((String) element);
                         }
                         break;
-                        //OrganizationSection initialization
+                    //OrganizationSection initialization
                     case EDUCATION:
                     case EXPERIENCE:
                         Collection collection2 = ((OrganizationSection) value).getOrganizations();
@@ -69,10 +69,16 @@ public class DataStreamSerializer implements SerializationStrategy {
                                 dos.writeUTF(((Organization.Position) item).getDescription());
                                 dos.writeUTF(((Organization.Position) item).getTitle());
 
-                                LocalDate endDate = ((Organization.Position) item).getEndDate();
-                                LocalDate startDate = ((Organization.Position) item).getStartDate();
-                                dos.writeInt();
-                                dos.writeUTF(((Organization.Position) item));
+                                Collection collection4 = (Collection) item;
+                                dos.writeInt(collection4.size());
+                                for (Object localDate : collection4) {
+                                    LocalDate endDate = ((Organization.Position) item).getEndDate();
+                                    LocalDate startDate = ((Organization.Position) item).getStartDate();
+                                    dos.writeInt(startDate.getYear());
+                                    dos.writeInt(startDate.getMonthValue());
+                                    dos.writeInt(endDate.getYear());
+                                    dos.writeInt(endDate.getMonthValue());
+                                }
                             }
 
                         }
