@@ -86,7 +86,6 @@ public class DataStreamSerializer implements SerializationStrategy {
         }
     }
 
-
     public void writeLocalDate(DataOutputStream dos, LocalDate localDate) throws IOException {
         dos.writeInt(localDate.getYear());
         dos.writeInt(localDate.getMonthValue());
