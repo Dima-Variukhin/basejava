@@ -3,6 +3,8 @@ package com.basejava.webapp.storage.serialization;
 import com.basejava.webapp.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Map;
 
 public class DataStreamSerializer implements SerializationStrategy {
@@ -30,10 +32,53 @@ public class DataStreamSerializer implements SerializationStrategy {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             }
+            //section initialization
             Map<SectionType, AbstractSection> sections = resume.getSections();
-            for (Map.Entry<SectionType, AbstractSection> entry : resume.getSections().entrySet()) {
-                
+            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+                SectionType sectionType = entry.getKey();
+                AbstractSection value = entry.getValue();
+                dos.writeUTF(sectionType.name());
+                //TextSection initialization
+                switch (sectionType) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        dos.writeUTF(((TextSection) value).getInfo());
+                        break;
+                    //ListSection initialization
+                    case ACHIEVEMENTS:
+                    case QUALIFICATIONS:
+                        Collection collection = ((ListSection) value).getElements();
+                        dos.writeInt(collection.size());
+                        for (Object element : collection) {
+                            dos.writeUTF((String) element);
+                        }
+                        break;
+                        //OrganizationSection initialization
+                    case EDUCATION:
+                    case EXPERIENCE:
+                        Collection collection2 = ((OrganizationSection) value).getOrganizations();
+                        dos.writeInt(collection2.size());
+                        //Link initialization
+                        for (Object element : collection2) {
+                            dos.writeUTF(((Link) element).getName());
+                            dos.writeUTF(((Link) element).getUrl());
+//Trying to initialize Organization, but too much troubles happened.
+                            Collection collection3 = (Collection) element;
+                            dos.writeInt(collection3.size());
+                            for (Object item : collection3) {
+                                dos.writeUTF(((Organization.Position) item).getDescription());
+                                dos.writeUTF(((Organization.Position) item).getTitle());
+
+                                LocalDate endDate = ((Organization.Position) item).getEndDate();
+                                LocalDate startDate = ((Organization.Position) item).getStartDate();
+                                dos.writeInt();
+                                dos.writeUTF(((Organization.Position) item));
+                            }
+
+                        }
+                }
             }
         }
     }
 }
+

@@ -17,8 +17,16 @@ import static com.basejava.webapp.util.DateUtil.of;
 
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
-    private List<Position> positions;
-    private Link homePage;
+    protected List<Position> positions;
+    protected Link homePage;
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
 
     public Organization(List<Position> positions, Link homePage) {
         this.positions = positions;
