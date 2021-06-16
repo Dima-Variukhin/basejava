@@ -72,8 +72,8 @@ public class DataStreamSerializer implements SerializationStrategy {
                                 Collection collection4 = (Collection) item;
                                 dos.writeInt(collection4.size());
                                 for (Object localDate : collection4) {
-                                    LocalDate endDate = ((Organization.Position) item).getEndDate();
-                                    LocalDate startDate = ((Organization.Position) item).getStartDate();
+                                    LocalDate endDate = ((Organization.Position) localDate).getEndDate();
+                                    LocalDate startDate = ((Organization.Position) localDate).getStartDate();
                                     dos.writeInt(startDate.getYear());
                                     dos.writeInt(startDate.getMonthValue());
                                     dos.writeInt(endDate.getYear());
