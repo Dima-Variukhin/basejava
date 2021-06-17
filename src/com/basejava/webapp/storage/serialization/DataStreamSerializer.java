@@ -60,24 +60,21 @@ public class DataStreamSerializer implements SerializationStrategy {
                             dos.writeUTF(element.getUrl());
                         }
                         //Organization Initialization
-                        List<Organization.Position> collection2 = (List<Organization.Position>) value;
-                        dos.writeInt(collection2.size());
-                        for (Organization.Position item : collection2) {
+                        List<Organization.Position> list2 = (List<Organization.Position>) value;
+                        dos.writeInt(list2.size());
+                        for (Organization.Position item : list2) {
                             dos.writeUTF(item.getDescription());
                             dos.writeUTF(item.getTitle());
                         }
                         //Initialization DATE
-                        List<Organization.Position> list = (List<Organization.Position>) value;
-                        for (Organization.Position o : list) {
-                            List<Organization.Position> list2 = (List<Organization.Position>) o;
-                            dos.writeInt(list2.size());
-                            for (Organization.Position localDate : list2) {
-                                LocalDate endDate = localDate.getEndDate();
-                                LocalDate startDate = localDate.getStartDate();
-                                writeLocalDate(dos, startDate);
-                                writeLocalDate(dos, endDate);
+                        List<Organization.Position> list3 = (List<Organization.Position>) value;
+                        dos.writeInt(list3.size());
+                        for (Organization.Position localDate : list3) {
+                            LocalDate endDate = localDate.getEndDate();
+                            LocalDate startDate = localDate.getStartDate();
+                            writeLocalDate(dos, startDate);
+                            writeLocalDate(dos, endDate);
 
-                            }
                         }
                     }
                 }
