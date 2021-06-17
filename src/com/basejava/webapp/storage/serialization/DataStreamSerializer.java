@@ -18,10 +18,26 @@ public class DataStreamSerializer implements SerializationStrategy {
             for (int i = 0; i < dis.readInt(); i++) {
                 resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
             }
-                SectionType sectionType = SectionType.valueOf(dis.readUTF());
-            resume.addSection(sectionType, switch (sectionType){
+            SectionType sectionType = SectionType.valueOf(dis.readUTF());
+            resume.addSection(sectionType, switch (sectionType) {
                 case PERSONAL, OBJECTIVE -> new TextSection(dis.readUTF());
-                case ACHIEVEMENTS, QUALIFICATIONS -> new ListSection()
+                case ACHIEVEMENTS, QUALIFICATIONS -> {
+                    List<String> strings = new ArrayList<>();
+                    for (int i = 0; i < dis.readInt(); i++) {
+                        strings.add(dis.readUTF());
+                    }
+                    new ListSection(strings);
+                }
+                case EDUCATION, EXPERIENCE -> {
+                    String name = null;
+                    String url = null;
+                    for (int i = 0; i < dis.readInt(); i++) {
+                        name = dis.readUTF();
+                        url = dis.readUTF();
+                    }
+                    new Link(name, url);
+
+                }
 
             };
             return resume;
