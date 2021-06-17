@@ -59,7 +59,7 @@ public class DataStreamSerializer implements SerializationStrategy {
                             dos.writeUTF(element.getName());
                             dos.writeUTF(element.getUrl());
                         }
-//Trying to initialize Organization, but too much troubles happened.
+                        //Organization Initialization
                         List<Organization.Position> collection2 = (List<Organization.Position>) value;
                         dos.writeInt(collection2.size());
                         for (Organization.Position item : collection2) {
