@@ -5,7 +5,6 @@ import com.basejava.webapp.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +42,6 @@ public class DataStreamSerializer implements SerializationStrategy {
                 //TextSection initialization
                 switch (sectionType) {
                     case PERSONAL, OBJECTIVE -> dos.writeUTF(((TextSection) value).getInfo());
-
                     //ListSection initialization
                     case ACHIEVEMENTS, QUALIFICATIONS -> {
                         List<String> list1 = new ArrayList<>(((ListSection) value).getElements());
@@ -54,22 +52,22 @@ public class DataStreamSerializer implements SerializationStrategy {
                     }
                     //OrganizationSection initialization
                     case EDUCATION, EXPERIENCE -> {
-                        Collection<String> collection1 = ((OrganizationSection) value).getOrganizations();
+                        List<OrganizationSection> collection1 = (List<OrganizationSection>) value;
                         dos.writeInt(collection1.size());
                         //Link initialization
-                        for (Object element : collection1) {
-                            dos.writeUTF(((Link) element).getUrl());
-                            dos.writeUTF(((Link) element).getUrl());
+                        for (OrganizationSection element : collection1) {
+                            dos.writeUTF(((Link) element.getOrganizations()).getName());
+                            dos.writeUTF(((Link) element.getOrganizations()).getUrl());
 //Trying to initialize Organization, but too much troubles happened.
-                            Collection<String> collection2 = ((OrganizationSection) value).getOrganizations();
+                            List<OrganizationSection> collection2 = (List<OrganizationSection>) value;
                             dos.writeInt(collection2.size());
-                            for (Object item : collection2) {
-                                dos.writeUTF(((Organization.Position) item).getDescription());
-                                dos.writeUTF(((Organization.Position) item).getTitle());
+                            for (OrganizationSection item : collection2) {
+                                dos.writeUTF(((Organization.Position) item.getOrganizations()).getDescription());
+                                dos.writeUTF(((Organization.Position) item.getOrganizations()).getTitle());
                                 //Initialization DATE
-                                List<String> list = ((OrganizationSection) value).getOrganizations();
-                                for (Object o : list) {
-                                    List<Organization.Position> list2 = ((Organization) o).getPositions();
+                                List<OrganizationSection> list = (List<OrganizationSection>) value;
+                                for (OrganizationSection o : list) {
+                                    List<Organization.Position> list2 = ((Organization) o.getOrganizations()).getPositions();
                                     dos.writeInt(list2.size());
                                     for (Organization.Position localDate : list2) {
                                         LocalDate endDate = localDate.getEndDate();
