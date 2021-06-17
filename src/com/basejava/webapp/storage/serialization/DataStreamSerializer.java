@@ -70,10 +70,8 @@ public class DataStreamSerializer implements SerializationStrategy {
                         List<Organization.Position> list3 = (List<Organization.Position>) value;
                         dos.writeInt(list3.size());
                         for (Organization.Position localDate : list3) {
-                            LocalDate endDate = localDate.getEndDate();
-                            LocalDate startDate = localDate.getStartDate();
-                            writeLocalDate(dos, startDate);
-                            writeLocalDate(dos, endDate);
+                            writeLocalDate(dos, localDate.getStartDate());
+                            writeLocalDate(dos, localDate.getEndDate());
 
                         }
                     }
