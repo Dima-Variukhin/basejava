@@ -52,30 +52,31 @@ public class DataStreamSerializer implements SerializationStrategy {
                     }
                     //OrganizationSection initialization
                     case EDUCATION, EXPERIENCE -> {
-                        List<OrganizationSection> collection1 = (List<OrganizationSection>) value;
+                        List<Link> collection1 = (List<Link>) value;
                         dos.writeInt(collection1.size());
                         //Link initialization
-                        for (OrganizationSection element : collection1) {
-                            dos.writeUTF(((Link) element.getOrganizations()).getName());
-                            dos.writeUTF(((Link) element.getOrganizations()).getUrl());
+                        for (Link element : collection1) {
+                            dos.writeUTF(element.getName());
+                            dos.writeUTF(element.getUrl());
+                        }
 //Trying to initialize Organization, but too much troubles happened.
-                            List<OrganizationSection> collection2 = (List<OrganizationSection>) value;
-                            dos.writeInt(collection2.size());
-                            for (OrganizationSection item : collection2) {
-                                dos.writeUTF(((Organization.Position) item.getOrganizations()).getDescription());
-                                dos.writeUTF(((Organization.Position) item.getOrganizations()).getTitle());
-                                //Initialization DATE
-                                List<OrganizationSection> list = (List<OrganizationSection>) value;
-                                for (OrganizationSection o : list) {
-                                    List<Organization.Position> list2 = ((Organization) o.getOrganizations()).getPositions();
-                                    dos.writeInt(list2.size());
-                                    for (Organization.Position localDate : list2) {
-                                        LocalDate endDate = localDate.getEndDate();
-                                        LocalDate startDate = localDate.getStartDate();
-                                        writeLocalDate(dos, startDate);
-                                        writeLocalDate(dos, endDate);
-                                    }
-                                }
+                        List<Organization.Position> collection2 = (List<Organization.Position>) value;
+                        dos.writeInt(collection2.size());
+                        for (Organization.Position item : collection2) {
+                            dos.writeUTF(item.getDescription());
+                            dos.writeUTF(item.getTitle());
+                        }
+                        //Initialization DATE
+                        List<Organization.Position> list = (List<Organization.Position>) value;
+                        for (Organization.Position o : list) {
+                            List<Organization.Position> list2 = (List<Organization.Position>) o;
+                            dos.writeInt(list2.size());
+                            for (Organization.Position localDate : list2) {
+                                LocalDate endDate = localDate.getEndDate();
+                                LocalDate startDate = localDate.getStartDate();
+                                writeLocalDate(dos, startDate);
+                                writeLocalDate(dos, endDate);
+
                             }
                         }
                     }
