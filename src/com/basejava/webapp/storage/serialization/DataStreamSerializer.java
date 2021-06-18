@@ -1,110 +1,1 @@
-package com.basejava.webapp.storage.serialization;
-
-import com.basejava.webapp.model.*;
-
-import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-public class DataStreamSerializer implements SerializationStrategy {
-    @Override
-    public Resume doRead(InputStream is) throws IOException {
-        try (DataInputStream dis = new DataInputStream(is)) {
-            String uuid = dis.readUTF();
-            String fullName = dis.readUTF();
-            Resume resume = new Resume(uuid, fullName);
-            for (int i = 0; i < dis.readInt(); i++) {
-                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            }
-            SectionType sectionType = SectionType.valueOf(dis.readUTF());
-            resume.addSection(sectionType, switch (sectionType) {
-                case PERSONAL, OBJECTIVE -> new TextSection(dis.readUTF());
-                case ACHIEVEMENTS, QUALIFICATIONS -> {
-                    List<String> strings = new ArrayList<>();
-                    for (int i = 0; i < dis.readInt(); i++) {
-                        strings.add(dis.readUTF());
-                    }
-                    new ListSection(strings);
-                }
-                case EDUCATION, EXPERIENCE -> {
-                    String name = null;
-                    String url = null;
-                    for (int i = 0; i < dis.readInt(); i++) {
-                        name = dis.readUTF();
-                        url = dis.readUTF();
-                    }
-                    new Link(name, url);
-
-                }
-
-            };
-            return resume;
-        }
-    }
-
-    @Override
-    public void doWrite(Resume resume, OutputStream os) throws IOException {
-        try (DataOutputStream dos = new DataOutputStream(os)) {
-            dos.writeUTF(resume.getUuid());
-            dos.writeUTF(resume.getFullName());
-            Map<ContactType, String> contacts = resume.getContacts();
-            dos.writeInt(contacts.size());
-            for (Map.Entry<ContactType, String> entry : resume.getContacts().entrySet()) {
-                dos.writeUTF(entry.getKey().name());
-                dos.writeUTF(entry.getValue());
-            }
-            //section initialization
-            Map<SectionType, AbstractSection> sections = resume.getSections();
-            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
-                SectionType sectionType = entry.getKey();
-                AbstractSection value = entry.getValue();
-                dos.writeUTF(sectionType.name());
-                //TextSection initialization
-                switch (sectionType) {
-                    case PERSONAL, OBJECTIVE -> dos.writeUTF(((TextSection) value).getInfo());
-                    //ListSection initialization
-                    case ACHIEVEMENTS, QUALIFICATIONS -> {
-                        List<String> list1 = new ArrayList<>(((ListSection) value).getElements());
-                        dos.writeInt(list1.size());
-                        for (String element : list1) {
-                            dos.writeUTF(element);
-                        }
-                    }
-                    //OrganizationSection initialization
-                    case EDUCATION, EXPERIENCE -> {
-                        List<Link> collection1 = (List<Link>) value;
-                        dos.writeInt(collection1.size());
-                        //Link initialization
-                        for (Link element : collection1) {
-                            dos.writeUTF(element.getName());
-                            dos.writeUTF(element.getUrl());
-                        }
-                        //Organization Initialization
-                        List<Organization.Position> list2 = (List<Organization.Position>) value;
-                        dos.writeInt(list2.size());
-                        for (Organization.Position item : list2) {
-                            dos.writeUTF(item.getDescription());
-                            dos.writeUTF(item.getTitle());
-                        }
-                        //Initialization DATE
-                        List<Organization.Position> list3 = (List<Organization.Position>) value;
-                        dos.writeInt(list3.size());
-                        for (Organization.Position localDate : list3) {
-                            writeLocalDate(dos, localDate.getStartDate());
-                            writeLocalDate(dos, localDate.getEndDate());
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public void writeLocalDate(DataOutputStream dos, LocalDate localDate) throws IOException {
-        dos.writeInt(localDate.getYear());
-        dos.writeInt(localDate.getMonthValue());
-    }
-}
-
+package com.basejava.webapp.storage.serialization;import com.basejava.webapp.model.*;import java.io.*;import java.time.LocalDate;import java.util.ArrayList;import java.util.List;import java.util.Map;public class DataStreamSerializer implements SerializationStrategy {    @Override    public Resume doRead(InputStream is) throws IOException {        try (DataInputStream dis = new DataInputStream(is)) {            String uuid = dis.readUTF();            String fullName = dis.readUTF();            Resume resume = new Resume(uuid, fullName);            for (int i = 0; i < dis.readInt(); i++) {                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());            }            SectionType sectionType = SectionType.valueOf(dis.readUTF());            resume.addSection(sectionType, switch (sectionType) {                case PERSONAL, OBJECTIVE -> new TextSection(dis.readUTF());                case ACHIEVEMENTS, QUALIFICATIONS -> {                    List<String> strings = new ArrayList<>();                    for (int i = 0; i < dis.readInt(); i++) {                        strings.add(dis.readUTF());                    }                    new ListSection(strings);                }                case EDUCATION, EXPERIENCE -> {                    String name = null;                    String url = null;                    for (int i = 0; i < dis.readInt(); i++) {                        name = dis.readUTF();                        url = dis.readUTF();                    }                    new Link(name, url);                }            };            return resume;        }    }    @Override    public void doWrite(Resume resume, OutputStream os) throws IOException {        try (DataOutputStream dos = new DataOutputStream(os)) {            dos.writeUTF(resume.getUuid());            dos.writeUTF(resume.getFullName());            Map<ContactType, String> contacts = resume.getContacts();            dos.writeInt(contacts.size());            for (Map.Entry<ContactType, String> entry : resume.getContacts().entrySet()) {                dos.writeUTF(entry.getKey().name());                dos.writeUTF(entry.getValue());            }            //section initialization            Map<SectionType, AbstractSection> sections = resume.getSections();            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {                SectionType sectionType = entry.getKey();                AbstractSection section = entry.getValue();                dos.writeUTF(sectionType.name());                //TextSection initialization                switch (sectionType) {                    case PERSONAL, OBJECTIVE -> dos.writeUTF(((TextSection) section).getInfo());                    //ListSection initialization                    case ACHIEVEMENTS, QUALIFICATIONS -> {                        List<String> listEls = (((ListSection) section).getElements());                        dos.writeInt(listEls.size());                        for (String element : listEls) {                            dos.writeUTF(element);                        }                    }                    //OrganizationSection initialization                    case EDUCATION, EXPERIENCE -> {                        List<Organization> orgList = (List<Organization>) section;                        dos.writeInt(orgList.size());                        for (Organization org : orgList) {                            dos.writeUTF(org.getHomePage().getName());                            dos.writeUTF(org.getHomePage().getUrl());                            dos.writeInt(org.getPositions().size());                            for (Organization.Position position : org.getPositions()) {                                dos.writeUTF(position.getTitle());                                dos.writeUTF(position.getDescription());                                writeLocalDate(dos, position.getStartDate());                                writeLocalDate(dos, position.getEndDate());                            }                        }                    }                }            }        }    }    public void writeLocalDate(DataOutputStream dos, LocalDate localDate) throws IOException {        dos.writeInt(localDate.getYear());        dos.writeInt(localDate.getMonthValue());    }}
