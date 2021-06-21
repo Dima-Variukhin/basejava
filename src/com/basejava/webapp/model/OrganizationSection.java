@@ -6,21 +6,21 @@ import java.util.Objects;
 
 public class OrganizationSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
-    protected List<String> organizations;
+    protected List<Organization> organizations;
 
     public OrganizationSection() {
     }
 
-    public OrganizationSection(String... organizations) {
+    public OrganizationSection(Organization... organizations) {
         this(Arrays.asList(organizations));
     }
 
-    public OrganizationSection(List<String> organizations) {
+    public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
     }
 
-    public List<String> getOrganizations() {
+    public List<Organization> getOrganizations() {
         return organizations;
     }
 
@@ -28,15 +28,13 @@ public class OrganizationSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OrganizationSection that = (OrganizationSection) o;
-
         return Objects.equals(organizations, that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return organizations != null ? organizations.hashCode() : 0;
+        return Objects.hash(organizations);
     }
 
     @Override

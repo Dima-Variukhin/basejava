@@ -20,6 +20,9 @@ public class Organization implements Serializable {
     protected List<Position> positions;
     protected Link homePage;
 
+    public Organization() {
+    }
+
     public Organization(List<Position> positions, Link homePage) {
         this.positions = positions;
         this.homePage = homePage;

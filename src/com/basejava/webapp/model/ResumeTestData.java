@@ -29,12 +29,12 @@ public class ResumeTestData {
         Organization alcatel = new Organization(alcatelList, new Link("Alcatel", null));
 
 
-        List<String> organizations = new ArrayList<>();
-        organizations.add(siemens + "\n");
-        organizations.add(coursera + "\n");
-        organizations.add(luxoft + "\n");
-        organizations.add(alcatel + "\n");
-        listAchievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven." +
+        List<Organization> organizations = new ArrayList<>();
+        organizations.add(coursera);
+        organizations.add(luxoft);
+        organizations.add(siemens);
+        organizations.add(alcatel);
+        listAchievements.add(" 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven." +
                 " Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\"." +
                 " Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.\n");
         listAchievements.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio," +
