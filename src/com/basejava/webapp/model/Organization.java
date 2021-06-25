@@ -41,16 +41,12 @@ public class Organization implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        if (!Objects.equals(positions, that.positions))
-            return false;
-        return Objects.equals(homePage, that.homePage);
+        return Objects.equals(positions, that.positions) && Objects.equals(homePage, that.homePage);
     }
 
     @Override
     public int hashCode() {
-        int result = positions != null ? positions.hashCode() : 0;
-        result = 31 * result + (homePage != null ? homePage.hashCode() : 0);
-        return result;
+        return Objects.hash(positions, homePage);
     }
 
     @Override
