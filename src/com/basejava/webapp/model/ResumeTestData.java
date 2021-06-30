@@ -65,7 +65,7 @@ public class ResumeTestData {
         listQualifications.add("Инструменты: Maven + plugin development, Gradle, настройка Ngnix,");
         listQualifications.add("администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer.");
         listQualifications.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
-        listQualifications.add("Родной русский, английский upper intermediate");
+        listQualifications.add("Родной русский, английский \"upper intermediate\"");
 
         resume.getSections().put(SectionType.PERSONAL,
                 new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
