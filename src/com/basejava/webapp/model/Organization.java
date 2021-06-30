@@ -41,16 +41,12 @@ public class Organization implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        if (!Objects.equals(positions, that.positions))
-            return false;
-        return Objects.equals(homePage, that.homePage);
+        return Objects.equals(positions, that.positions) && Objects.equals(homePage, that.homePage);
     }
 
     @Override
     public int hashCode() {
-        int result = positions != null ? positions.hashCode() : 0;
-        result = 31 * result + (homePage != null ? homePage.hashCode() : 0);
-        return result;
+        return Objects.hash(positions, homePage);
     }
 
     @Override
@@ -110,22 +106,13 @@ public class Organization implements Serializable {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-
-            Position that = (Position) o;
-
-            if (!startDate.equals(that.startDate)) return false;
-            if (!endDate.equals(that.endDate)) return false;
-            if (!title.equals(that.title)) return false;
-            return Objects.equals(description, that.description);
+            Position position = (Position) o;
+            return Objects.equals(startDate, position.startDate) && Objects.equals(endDate, position.endDate) && Objects.equals(title, position.title) && Objects.equals(description, position.description);
         }
 
         @Override
         public int hashCode() {
-            int result = startDate.hashCode();
-            result = 31 * result + endDate.hashCode();
-            result = 31 * result + title.hashCode();
-            result = 31 * result + (description != null ? description.hashCode() : 0);
-            return result;
+            return Objects.hash(startDate, endDate, title, description);
         }
 
         @Override

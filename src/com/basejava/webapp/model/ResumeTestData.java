@@ -9,10 +9,10 @@ public class ResumeTestData {
         Resume resume = new Resume(uuid, fullName);
         List<String> listAchievements = new ArrayList<>();
         List<String> listQualifications = new ArrayList<>();
-        Organization.Position courseraOrg = new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky\n");
+        Organization.Position courseraOrg = new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky");
         Organization.Position luxoftOrg = new Organization.Position(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
         Organization.Position siementsOrg = new Organization.Position(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
-        Organization.Position alcatelOrg = new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)\n");
+        Organization.Position alcatelOrg = new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)");
 
         List<Organization.Position> courseraList = new ArrayList<>();
         courseraList.add(courseraOrg);
@@ -84,6 +84,7 @@ public class ResumeTestData {
         resume.getContacts().put(ContactType.PHONE, "+7(921) 855-0482");
         resume.getContacts().put(ContactType.SKYPE, "grigory.kislin");
         resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+
         return resume;
     }
 }

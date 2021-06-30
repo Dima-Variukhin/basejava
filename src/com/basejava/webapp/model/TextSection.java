@@ -22,15 +22,13 @@ public class TextSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         TextSection that = (TextSection) o;
-
         return Objects.equals(info, that.info);
     }
 
     @Override
     public int hashCode() {
-        return info != null ? info.hashCode() : 0;
+        return Objects.hash(info);
     }
 
     @Override
