@@ -74,6 +74,7 @@ public class ResumeTestData {
                 new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям\n"));
         resume.getSections().put(SectionType.ACHIEVEMENTS, new ListSection(listAchievements));
         resume.getSections().put(SectionType.QUALIFICATIONS, new ListSection(listQualifications));
+        resume.getSections().put(SectionType.EXPERIENCE,new OrganizationSection(organizations));
         resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(organizations));
 
         resume.getContacts().put(ContactType.EMAIL, "gkislin@yandex.ru\n");
