@@ -26,7 +26,7 @@ public class ResumeTestData {
         Organization coursera = new Organization(courseraList, new Link("Coursera", "https://www.coursera.org/learn/progfun1"));
         Organization luxoft = new Organization(luxoftList, new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html"));
         Organization siemens = new Organization(siemensList, new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"));
-        Organization alcatel = new Organization(alcatelList, new Link("Alcatel", "null"));
+        Organization alcatel = new Organization(alcatelList, new Link("Alcatel", ""));
 
 
         List<Organization> organizations = new ArrayList<>();
