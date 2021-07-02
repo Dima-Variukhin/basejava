@@ -74,6 +74,28 @@ public class Resume implements Comparable<Resume>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
+
+        Boolean ok = Objects.equals(fullName, resume.fullName);
+        Boolean ok2 = Objects.equals(contacts, resume.contacts);
+        Boolean ok3 = Objects.equals(sections, resume.sections);
+
+        Boolean ok4 = Objects.equals(sections.get(SectionType.ACHIEVEMENTS), resume.sections.get(SectionType.ACHIEVEMENTS));
+        Boolean ok5 = Objects.equals(sections.get(SectionType.QUALIFICATIONS), resume.sections.get(SectionType.QUALIFICATIONS));
+
+        Boolean ok6 = Objects.equals(sections.get(SectionType.EXPERIENCE), resume.sections.get(SectionType.EXPERIENCE));
+        Boolean ok7 = Objects.equals(sections.get(SectionType.EDUCATION), resume.sections.get(SectionType.EDUCATION));
+
+        Boolean ok8 = Objects.equals(sections.get(SectionType.PERSONAL), resume.sections.get(SectionType.PERSONAL));
+        Boolean ok9 = Objects.equals(sections.get(SectionType.OBJECTIVE), resume.sections.get(SectionType.OBJECTIVE));
+        System.out.println(ok);
+        System.out.println(ok2);
+        System.out.println(ok3);
+        System.out.println(ok4);
+        System.out.println(ok5);
+        System.out.println(ok6);
+        System.out.println(ok7);
+        System.out.println(ok8);
+        System.out.println(ok9);
         return Objects.equals(uuid, resume.uuid) && Objects.equals(fullName, resume.fullName) && Objects.equals(sections, resume.sections) && Objects.equals(contacts, resume.contacts);
     }
 
