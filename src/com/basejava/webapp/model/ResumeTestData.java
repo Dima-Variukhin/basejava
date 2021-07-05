@@ -12,7 +12,7 @@ public class ResumeTestData {
         Organization.Position courseraOrg = new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky");
         Organization.Position luxoftOrg = new Organization.Position(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
         Organization.Position siementsOrg = new Organization.Position(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)");
-        Organization.Position alcatelOrg = new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", "6 месяцев обучения цифровым телефонным сетям (Москва)");
+        Organization.Position alcatelOrg = new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "Alcatel", null);
 
         List<Organization.Position> courseraList = new ArrayList<>();
         courseraList.add(courseraOrg);
@@ -26,7 +26,7 @@ public class ResumeTestData {
         Organization coursera = new Organization(courseraList, new Link("Coursera", "https://www.coursera.org/learn/progfun1"));
         Organization luxoft = new Organization(luxoftList, new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html"));
         Organization siemens = new Organization(siemensList, new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"));
-        Organization alcatel = new Organization(alcatelList, new Link("Alcatel", ""));
+        Organization alcatel = new Organization(alcatelList, new Link("Alcatel", null));
 
 
         List<Organization> organizations = new ArrayList<>();
