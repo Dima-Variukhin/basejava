@@ -5,41 +5,36 @@ public class DeadLock {
     public static final Object lockB = new Object();
 
     public static void main(String[] args) {
-        Thread1 thread1 = new Thread1();
-        Thread2 thread2 = new Thread2();
-        thread1.start();
-        thread2.start();
+        deadLock();
     }
-    //Realization of deadLock
-    private static class Thread1 extends Thread {
-        public void run() {
+
+    public static void deadLock() {
+        new Thread(() -> {
             synchronized (lockA) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("method 1 action 1");
+                System.out.println(Thread.currentThread().getName()+ " captured lock A");
+                System.out.println(Thread.currentThread().getName()+ " Waiting for Thread-1 to release lock B");
                 synchronized (lockB) {
-                    System.out.println("method 1 action 2");
                 }
             }
-        }
-    }
+        }).start();
 
-    private static class Thread2 extends Thread {
-        public void run() {
+        new Thread(() -> {
             synchronized (lockB) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("method 2 action 1");
+                System.out.println(Thread.currentThread().getName()+ " captured lock B");
+                System.out.println(Thread.currentThread().getName()+ " Waiting for Thread-0 to release lock A");
                 synchronized (lockA) {
-                    System.out.println("method 2 action 2");
                 }
             }
-        }
+        }).start();
     }
 }
