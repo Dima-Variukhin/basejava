@@ -5,36 +5,32 @@ public class DeadLock {
     public static final Object lockB = new Object();
 
     public static void main(String[] args) {
-        deadLock();
+        deadLockThread(lockA, lockB, "A", "1", "B");
+        deadLockThread(lockB, lockA, "B", "0", "A");
     }
 
-    public static void deadLock() {
+    private static void deadLockThread(Object lock1, Object lock2, String lockName, String threadNumber, String releaseLock) {
         new Thread(() -> {
-            synchronized (lockA) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(Thread.currentThread().getName()+ " captured lock A");
-                System.out.println(Thread.currentThread().getName()+ " Waiting for Thread-1 to release lock B");
-                synchronized (lockB) {
+            synchronized (lock2) {
+                threadSleep();
+                outPut(lockName, threadNumber, releaseLock);
+                synchronized (lock1) {
+                    System.out.println("It'll never out of here");
                 }
             }
         }).start();
+    }
 
-        new Thread(() -> {
-            synchronized (lockB) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(Thread.currentThread().getName()+ " captured lock B");
-                System.out.println(Thread.currentThread().getName()+ " Waiting for Thread-0 to release lock A");
-                synchronized (lockA) {
-                }
-            }
-        }).start();
+    private static void outPut(String lockName, String threadNumber, String releaseLock) {
+        System.out.println(Thread.currentThread().getName() + " captured lock " + lockName);
+        System.out.println(Thread.currentThread().getName() + " Waiting for Thread-" + threadNumber + " to release lock " + releaseLock);
+    }
+
+    private static void threadSleep() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
