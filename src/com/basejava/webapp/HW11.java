@@ -1,7 +1,6 @@
 package com.basejava.webapp;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 public class HW11 {
     public static void main(String[] args) {
@@ -12,15 +11,16 @@ public class HW11 {
 
     private static int minValue(int[] values) {
         int result = 0;
-        IntStream sorted = Arrays.stream(values).distinct().sorted();
-        int[] rees = sorted.toArray();
-        for (int n = rees.length - 1, i = 1; n >= 0; n--, i *= 10) {
-            result += Math.abs(rees[n]) * i;
+        int[] sorted = Arrays.stream(values).distinct().sorted().toArray();
+        for (int n = sorted.length - 1, i = 1; n >= 0; n--, i *= 10) {
+            result += Math.abs(sorted[n]) * i;
         }
-
         return result;
     }
 }
+
+//    private static int minValue(int[] values) {
+//        int result = 0;
 //        Set<Integer> integers = new HashSet<>();
 //        for (Integer integer : values) {
 //            integers.add(integer);
@@ -32,4 +32,6 @@ public class HW11 {
 //            result += Math.abs(arr[n]) * i;
 //        }
 //        return result;
+//    }
+//}
 
