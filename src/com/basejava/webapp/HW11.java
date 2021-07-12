@@ -7,10 +7,7 @@ public class HW11 {
     public static void main(String[] args) {
         int[] a = {3, 4, 5, 1, 6, 6, 9, 7, 8};
         System.out.println(minValue(a));
-        List<Integer> integers = new ArrayList<>();
-        for (int j : a) {
-            integers.add(j);
-        }
+        List<Integer> integers = Arrays.stream(a).boxed().collect(Collectors.toList());
         System.out.println(oddOrEven(integers));
     }
 
