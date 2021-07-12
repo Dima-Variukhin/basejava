@@ -1,12 +1,17 @@
 package com.basejava.webapp;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HW11 {
     public static void main(String[] args) {
         int[] a = {3, 4, 5, 1, 6, 6, 9, 7, 8};
         System.out.println(minValue(a));
-
+        List<Integer> integers = new ArrayList<>();
+        for (int j : a) {
+            integers.add(j);
+        }
+        System.out.println(oddOrEven(integers));
     }
 
     private static int minValue(int[] values) {
@@ -16,6 +21,12 @@ public class HW11 {
             result += Math.abs(sorted[n]) * i;
         }
         return result;
+    }
+
+    private static List<Integer> oddOrEven(List<Integer> integers) {
+        final Map<Boolean, List<Integer>> oddsAndEvens = integers.stream()
+                .collect(Collectors.partitioningBy(i -> i % 2 == 0));
+        return oddsAndEvens.get(oddsAndEvens.get(false).size() % 2 != 0);
     }
 }
 
