@@ -1,7 +1,6 @@
 package com.basejava.webapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.*;
 
 public class MainConcurrent {
     public static final int THREADS_NUMBER = 10000;
@@ -29,29 +28,33 @@ public class MainConcurrent {
 
         System.out.println(thread0.getState());
         final MainConcurrent mainConcurrency = new MainConcurrent();
-        List<Thread>threads = new ArrayList<>(THREADS_NUMBER);
+        CountDownLatch latch = new CountDownLatch(THREADS_NUMBER);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        CompletionService completionService = new ExecutorCompletionService(executorService);
+        //   List<Thread>threads = new ArrayList<>(THREADS_NUMBER);
         for (int i = 0; i < THREADS_NUMBER; i++) {
-            Thread thread = new Thread(() -> {
+            Future<Integer> future = executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
                 }
+                latch.countDown();
+                return 5;
             });
-            thread.start();
-            thread.join();
-
         }
-        threads.forEach(t-> {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+//        threads.forEach(t-> {
+//            try {
+//                t.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
+        latch.await(10, TimeUnit.SECONDS);
+        executorService.shutdown();
         System.out.println(counter);
     }
 
     private synchronized void inc() {
-            counter++;
+        counter++;
     }
 }
 
