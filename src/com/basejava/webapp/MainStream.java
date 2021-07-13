@@ -3,7 +3,7 @@ package com.basejava.webapp;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HW11 {
+public class MainStream {
     public static void main(String[] args) {
         int[] a = {3, 4, 5, 1, 6, 6, 9, 7, 8};
         System.out.println(minValue(a));
