@@ -5,19 +5,14 @@ import java.util.stream.Collectors;
 
 public class MainStream {
     public static void main(String[] args) {
-        int[] a = {3, 4, 5, 1, 6, 6, 9, 7, 8};
+        int[] a = {3, 4, 4, 5, 1, 6, 6, 9, 7, 8};
         System.out.println(minValue(a));
         List<Integer> integers = Arrays.stream(a).boxed().collect(Collectors.toList());
         System.out.println(oddOrEven(integers));
     }
 
     private static int minValue(int[] values) {
-        int result = 0;
-        int[] sorted = Arrays.stream(values).distinct().sorted().toArray();
-        for (int n = sorted.length - 1, i = 1; n >= 0; n--, i *= 10) {
-            result += Math.abs(sorted[n]) * i;
-        }
-        return result;
+        return Arrays.stream(Arrays.stream(values).distinct().sorted().toArray()).reduce((x, y)-> (x*10)+y).getAsInt();
     }
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
