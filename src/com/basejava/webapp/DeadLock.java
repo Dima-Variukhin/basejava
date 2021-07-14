@@ -23,7 +23,7 @@ public class DeadLock {
 
     private static void outPut(String lockName, String threadNumber, String releaseLock) {
         System.out.println(Thread.currentThread().getName() + " captured lock " + lockName);
-        System.out.println(Thread.currentThread().getName() + " Waiting for Thread-" + threadNumber + " to release lock " + releaseLock);
+        System.out.println(Thread.currentThread().getName() + " Waiting for Thread " + threadNumber + " to release lock " + releaseLock);
     }
 
     private static void threadSleep() {
