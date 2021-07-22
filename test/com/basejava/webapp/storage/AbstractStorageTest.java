@@ -1,5 +1,6 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.Config;
 import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("/Users/metamorfag/IdeaProjects/basejava/src/storage");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     private static final String UUID_1 = "1";
     private static final String UUID_2 = "2";
