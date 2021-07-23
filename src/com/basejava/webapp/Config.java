@@ -14,7 +14,7 @@ public class Config {
     private static final Config INSTANCE = new Config();
     private Properties props = new Properties();
     private File storageDir;
-    private static Storage storage;
+    private final Storage storage;
 
     public static Config get() {
         return INSTANCE;
@@ -34,7 +34,7 @@ public class Config {
         return storageDir;
     }
 
-    public static Storage getStorage() {
+    public Storage getStorage() {
         return storage;
     }
 }
