@@ -12,18 +12,20 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
-    private static final String UUID_1 = "1";
-    private static final String UUID_2 = "2";
-    private static final String UUID_3 = "3";
-    private static final String UUID_4 = "4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
 
     private static final Resume resume1;
     private static final Resume resume2;
     private static final Resume resume3;
+
 
     static {
         resume1 = ResumeTestData.createResume("Name1", UUID_1);

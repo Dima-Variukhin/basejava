@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlStorage implements Storage {
-    private SqlHelper sqlHelper;
+    private final SqlHelper sqlHelper;
 
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
@@ -52,7 +52,7 @@ public class SqlStorage implements Storage {
             code.setString(1, r.getFullName());
             code.setString(2, r.getUuid());
             return null;
-        }, "UPDATE resume SET full_name=? WHERE uuid=?");
+        }, "UPDATE resume SET full_name = ? WHERE uuid = ?");
     }
 
     @Override
@@ -64,7 +64,7 @@ public class SqlStorage implements Storage {
                 throw new NotExistStorageException(uuid);
             }
             return new Resume(uuid, rs.getString("full_name"));
-        }, "SELECT * FROM resume r WHERE uuid =?");
+        }, "SELECT * FROM resume WHERE uuid =?");
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SqlStorage implements Storage {
                     ResultSet rs = code.executeQuery();
                     List<Resume> resumes = new ArrayList<>();
                     while (rs.next()) {
-                        resumes.add(new Resume(rs.getString("uuid").trim(), rs.getString("full_name")));
+                        resumes.add(new Resume(rs.getString("uuid"), rs.getString("full_name")));
                     }
                     return resumes;
                 }, "SELECT * FROM resume ORDER BY full_name,uuid"
