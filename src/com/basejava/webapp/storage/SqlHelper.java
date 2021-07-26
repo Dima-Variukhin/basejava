@@ -1,5 +1,6 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.sql.ConnectionFactory;
 
@@ -27,12 +28,16 @@ public class SqlHelper {
         T execute(PreparedStatement preparedStatement) throws SQLException;
     }
 
-    public <T> T execute(adBlockOfCode<T> adBlockOfCode, String sql) {
+    public <T> T execute(String sql, adBlockOfCode<T> adBlockOfCode) {
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             return adBlockOfCode.execute(ps);
         } catch (SQLException e) {
-            throw new StorageException(e);
+            if (e.getSQLState().equals("23505")) {
+                throw new ExistStorageException(e.getMessage());
+            } else {
+                throw new StorageException(e);
+            }
         }
     }
 }
