@@ -15,23 +15,10 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public void executeSql(String sql) {
+    public <T> T execute(String sql, executeSQL<T> executeSQL) {
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.execute();
-        } catch (SQLException e) {
-            throw new StorageException(e);
-        }
-    }
-
-    public interface adBlockOfCode<T> {
-        T execute(PreparedStatement preparedStatement) throws SQLException;
-    }
-
-    public <T> T execute(String sql, adBlockOfCode<T> adBlockOfCode) {
-        try (Connection conn = connectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            return adBlockOfCode.execute(ps);
+            return executeSQL.execute(ps);
         } catch (SQLException e) {
             if (e.getSQLState().equals("23505")) {
                 throw new ExistStorageException(e.getMessage());
@@ -39,5 +26,37 @@ public class SqlHelper {
                 throw new StorageException(e);
             }
         }
+    }
+
+    public <T> T transactionalExecute(SqlTransaction<T> executor) {
+        try (Connection conn = connectionFactory.getConnection()) {
+            try {
+                conn.setAutoCommit(false);
+                T res = executor.execute(conn);
+                conn.commit();
+                return res;
+            } catch (SQLException e) {
+                conn.rollback();
+                if (e.getSQLState().equals("23505")) {
+                    throw new ExistStorageException(e.getMessage());
+                } else {
+                    throw new StorageException(e);
+                }
+            }
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
+    }
+
+    public void executeSQL(String sql) {
+        execute(sql, PreparedStatement::execute);
+    }
+
+    public interface executeSQL<T> {
+        T execute(PreparedStatement preparedStatement) throws SQLException;
+    }
+
+    public interface SqlTransaction<T> {
+        T execute(Connection conn) throws SQLException;
     }
 }
