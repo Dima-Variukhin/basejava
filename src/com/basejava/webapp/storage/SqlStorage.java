@@ -40,11 +40,7 @@ public class SqlStorage implements Storage {
             return code.executeUpdate();
         });
 
-        sqlHelper.execute("DELETE FROM contact where resume_uuid=?", code -> {
-            code.setString(1, uuid);
-            code.execute();
-            return code.executeUpdate();
-        });
+        deleteContacts(new Resume());
     }
 
     @Override
