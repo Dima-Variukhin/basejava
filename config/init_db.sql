@@ -22,6 +22,14 @@ create table contact
             on delete cascade
 );
 
+CREATE TABLE section
+(
+    id          SERIAL PRIMARY KEY,
+    resume_uuid CHAR(36) NOT NULL REFERENCES resume (uuid) ON DELETE CASCADE,
+    type        TEXT     NOT NULL,
+    content     TEXT     NOT NULL
+);
+
 alter table contact
     owner to postgres;
 
