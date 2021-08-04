@@ -28,66 +28,32 @@ public class ResumeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         Writer writer = response.getWriter();
-        response.getWriter().write(
-                """
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                        <style>
-                        table {
-                          font-family: arial, sans-serif;
-                          border-collapse: collapse;
-                          width: 100%;
-                        }
-
-                        td, th {
-                          border: 1px solid #dddddd;
-                          text-align: left;
-                          padding: 8px;
-                        }
-
-                        tr:nth-child(even) {
-                          background-color: #dddddd;
-                        }
-                        </style>
-                        </head>
-                        <body>
-
-                        <h2>HTML Table</h2>
-
-                        <table>
-                          <tr>
-                            <th>Contact</th>
-                            <th>Country</th>
-                          </tr>
-                          <tr>
-                          </tr>
-                          <tr>
-                          </tr>
-                          <tr>
-                          </tr>
-                          <tr>
-                          </tr>
-                          <tr>
-                          </tr>
-                          <tr>
-                          </tr>
-                        </table>
-
-                        </body>
-                        </html>""");
-
+        writer.write(
+                "<html>\n" +
+                        "<head>\n" +
+                        "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" +
+                        "    <link rel=\"stylesheet\" href=\"css/style.css\">\n" +
+                        "    <title>Список всех резюме</title>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<section>\n" +
+                        "<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\">\n" +
+                        "    <tr>\n" +
+                        "        <th>Имя</th>\n" +
+                        "        <th>Email</th>\n" +
+                        "    </tr>\n");
         for (Resume resume : storage.getAllSorted()) {
-            writer.write(
-                    "<tr>\n" +
-                            "     <td><a href=\"resume?uuid=" + resume.getUuid() + "\">" + resume.getFullName() + "</a></td>\n" +
-                            "     <td>" + resume.getContact(ContactType.PHONE) + "</td>\n" +
-                            "</tr>\n");
+            writer.write("<tr>\n" +
+                    "     <td><a href=\"resume?uuid=" + resume.getUuid() + "\">" + resume.getFullName() + "</a></td>\n" +
+                    "     <td>" + resume.getContact(ContactType.EMAIL) + "</td>\n" +
+                    "</tr>\n");
         }
-        writer.write("</table>\n" +
-                "</section>\n" +
-                "</body>\n" +
-                "</html>\n");
+        writer.write("""
+                </table>
+                </section>
+                </body>
+                </html>
+                """);
     }
 
     @Override
