@@ -62,15 +62,15 @@ public class ResumeTestData {
         listQualifications.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
         listQualifications.add("Родной русский, английский \"upper intermediate\"");
 
-//        resume.getSections().put(SectionType.PERSONAL,
-//                new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-//
-//        resume.getSections().put(SectionType.OBJECTIVE,
-//                new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-//        resume.getSections().put(SectionType.ACHIEVEMENTS, new ListSection(listAchievements));
-//        resume.getSections().put(SectionType.QUALIFICATIONS, new ListSection(listQualifications));
-//        resume.getSections().put(SectionType.EXPERIENCE,new OrganizationSection(coursera,luxoft,siemens,alcatel));
-//        resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(coursera,luxoft,siemens,alcatel));
+        resume.getSections().put(SectionType.PERSONAL,
+                new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+
+        resume.getSections().put(SectionType.OBJECTIVE,
+                new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        resume.getSections().put(SectionType.ACHIEVEMENTS, new ListSection(listAchievements));
+        resume.getSections().put(SectionType.QUALIFICATIONS, new ListSection(listQualifications));
+        resume.getSections().put(SectionType.EXPERIENCE,new OrganizationSection(coursera,luxoft,siemens,alcatel));
+        resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(coursera,luxoft,siemens,alcatel));
 
         resume.getContacts().put(ContactType.EMAIL, "gkislin@yandex.ru");
         resume.getContacts().put(ContactType.GITHUB, "https://github.com/gkislin");

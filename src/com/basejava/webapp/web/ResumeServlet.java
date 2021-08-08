@@ -1,9 +1,9 @@
 package com.basejava.webapp.web;
 
 import com.basejava.webapp.Config;
-import com.basejava.webapp.model.ContactType;
-import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.model.*;
 import com.basejava.webapp.storage.Storage;
+import com.basejava.webapp.util.DateUtil;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
     Storage storage;
@@ -24,40 +25,85 @@ public class ResumeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
-        Writer writer = response.getWriter();
-        writer.write(
-                "<html>\n" +
-                        "<head>\n" +
-                        "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" +
-                        "    <link rel=\"stylesheet\" href=\"css/style.css\">\n" +
-                        "    <title>Список всех резюме</title>\n" +
-                        "</head>\n" +
-                        "<body>\n" +
-                        "<section>\n" +
-                        "<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\">\n" +
-                        "    <tr>\n" +
-                        "        <th>Имя</th>\n" +
-                        "        <th>Email</th>\n" +
-                        "    </tr>\n");
-        for (Resume resume : storage.getAllSorted()) {
-            writer.write("<tr>\n" +
-                    "     <td><a href=\"resume?uuid=" + resume.getUuid() + "\">" + resume.getFullName() + "</a></td>\n" +
-                    "     <td>" + resume.getContact(ContactType.EMAIL) + "</td>\n" +
-                    "</tr>\n");
+        String uuid = request.getParameter("uuid");
+        String action = request.getParameter("action");
+        if (action == null) {
+            request.setAttribute("resumes", storage.getAllSorted());
+            request.getRequestDispatcher("/Users/metamorfag/IdeaProjects/basejava/web/WEB-INF/jsp/list.jsp").forward(request, response);
+            return;
         }
-        writer.write("""
-                </table>
-                </section>
-                </body>
-                </html>
-                """);
+        Resume r;
+        switch (action) {
+            case "delete":
+                storage.delete(uuid);
+                response.sendRedirect("resume");
+            case "view":
+            case "edit":
+                r = storage.get(uuid);
+                break;
+            default:
+                throw new IllegalArgumentException("Action" + action + " is illegal");
+        }
+        request.setAttribute("resume", r);
+        request.getRequestDispatcher(("view".equals(action) ? "/Users/metamorfag/IdeaProjects/basejava/web/WEB-INF/jsp/view.jsp" : "/Users/metamorfag/IdeaProjects/basejava/web/WEB-INF/jsp/edit.jsp"));
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8 ");
+        String uuid = request.getParameter("uuid");
+        String fullName = request.getParameter("fullName");
+        Resume r = storage.get(uuid);
+        r.setFullName(fullName);
+        for (ContactType type : ContactType.values()) {
+            String value = request.getParameter(type.name());
+            if (value != null && value.trim().length() != 0) {
+                r.addContact(type, value);
+            } else {
+                r.getContacts().remove(type);
+            }
+        }
 
+        for (SectionType type : SectionType.values()) {
+            String value = request.getParameter(type.name());
+            String[] values = request.getParameterValues(type.name());
+            if (values.length < 2) {
+                r.getSections().remove(type);
+            } else {
+                switch (type) {
+                    case OBJECTIVE:
+                    case PERSONAL:
+                        r.setSections(type, new TextSection(value));
+                        break;
+                    case ACHIEVEMENTS:
+                    case QUALIFICATIONS:
+                        r.setSection(type, new ListSection(value.split("\\n")));
+                        break;
+                    case EDUCATION:
+                    case EXPERIENCE:
+                        List<Organization> organizations = new ArrayList<>();
+                        String[] urls = request.getParameterValues(type.name() + "url");
+                        for (int i = 0; i < values.length; i++) {
+                            String name = values[i];
+                            if (name != null) {
+                                List<Organization.Position> positions = new ArrayList<>();
+                                String pos = type.name() + i;
+                                String[] startDates = request.getParameterValues(pos + "startDate");
+                                String[] endDates = request.getParameterValues(pos + "endDate");
+                                String[] titles = request.getParameterValues(pos + "title");
+                                String[] descriptions = request.getParameterValues(pos + "description");
+                                for (int j = 0; j < titles.length; j++) {
+                                    positions.add(new Organization.Position(DateUtil.parse(startDates[j]), DateUtil.parse(endDates[j]), titles[j], descriptions[j]));
+                                }
+                                organizations.add(new Organization(positions, new Link(name, urls[i])));
+                            }
+                        }
+                        r.setSection(type, new OrganizationSection(organizations));
+                        break;
+                }
+            }
+        }
+        storage.update(r);
+        response.sendRedirect("resume");
     }
 }

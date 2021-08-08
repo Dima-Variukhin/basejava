@@ -153,10 +153,10 @@ public class SqlStorage implements Storage {
     }
 
     private void addSection(ResultSet rs, Resume resume) throws SQLException {
-        String content = rs.getString("content");
-        if (content != null) {
+        String value = rs.getString("value");
+        if (value != null) {
             SectionType sectionType = SectionType.valueOf(rs.getString("type"));
-            resume.addSection(sectionType, JsonParser.doRead(content, Section.class));
+            resume.addSection(sectionType, JsonParser.doRead(value, Section.class));
         }
     }
 
@@ -187,7 +187,7 @@ public class SqlStorage implements Storage {
     }
 
     private void insertSections(Resume r, Connection conn) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, content) VALUES (?,?,?)")) {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> entry : r.getSections().entrySet()) {
                 ps.setString(1, r.getUuid());
                 ps.setString(2, entry.getKey().name());
